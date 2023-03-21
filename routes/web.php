@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-<<<<<<< Updated upstream
-=======
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
->>>>>>> Stashed changes
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,21 +21,14 @@ Route::get('/', function () {
     return view('landing');
 })->name('login');
 
-<<<<<<< Updated upstream
-Route::group([
-    'prefix' => 'user',
-], function () {
-    Route::get('/{id}', [DashboardController::class, '']);
-});
-=======
 Route::post('register', [RegisterController::class, 'register'])->middleware('guest');
 
 Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('/dashboard/{id}', function($id) {
+Route::get('/dashboard/{user}', function(User $user) {
     return view ('dashboard', [
-        // 'user' => $id
+        'user' => $user
     ]);
-})->middleware('auth');
->>>>>>> Stashed changes
+})->name('dashboard')->middleware('auth')
+;
