@@ -16,7 +16,7 @@ class RegistrationControl extends Controller
             'lastName' => ['required', 'max:255'],
             'mobileno' => ['required', 'min:10', 'max:10', 'unique:users,mobileno'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'min:8', 'max:255'],
+            'password' => ['required', 'min:8', 'max:255', 'confirmed'],
         ]);
 
         if ($validation->fails()) {
