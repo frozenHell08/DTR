@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('time_tables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('date');
             $table->timestamp('time_in');
             $table->timestamp('time-out')->nullable();
