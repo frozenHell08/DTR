@@ -5,19 +5,36 @@
 <title>DTR</title>
 
 <link rel="stylesheet" href="/src/style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 
 <body class="mine">
     <header>
         <h2 class="logo">Image here</h2>
 
         <nav class="navigation">
-            <a href="#">Home</a>
-            <button class="btnLogin">Login</button>
+            <a href="/">Home</a>
+            @auth
+                <span>Welcome {{ auth()->user()->firstName }}</span>
+
+                <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit">Log Out</button>
+                </form>
+            @else
+                <button class="btnLogin">Login</button>
+            @endauth
         </nav>
     </header>
     {{ $slot }}
 
-    <script type="text/JavaScript" src="/script.js"></script>
+
+    @if (session()->has('success'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
+    <script type="text/JavaScript" src="/src/script.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

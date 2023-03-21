@@ -7,19 +7,20 @@
 }
 :root {
     --navtext : white;
-    --formtext : #a80008;
-    --forminputtext : black;
-    --formicons : #a80008;
-    --formicontext : white;
-    --formlabel : #a80008;
-    --formNlabel : black;
+    --navlink : #3007a3;
+    --formtext : #fff;
+    --forminputtext : white;
+    --formicons : #fff;
+    --formicontext : #4e03cf;
+    --formlabel : #fff;
+    --formNlabel : #fff;
     --formlink : #dd4848;
 
-    --formbtntext : #a80008;
+    --formbtntext : #4404cc;
     --formbtnbg : rgb(210, 209, 209);
     --formbg : white;
     --formborder : rgb(255, 255, 255, .5);
-    --forminputborder : #a80008;
+    --forminputborder : #fff;
 }
 
 body {
@@ -27,7 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('/res/demo.png') no-repeat;
+    background: url('/res/loginbg.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -44,6 +45,17 @@ header {
     z-index: 99;
 }
 
+/* -------------------- FLASH ELEMENTS --------------------  */
+
+.session {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    padding: 10px;
+    background-color: var(--navtext);
+    border-radius: 10px;
+}
+
 /* -------------------- LOGIN ELEMENTS --------------------  */
 
 .wrapper {
@@ -54,10 +66,11 @@ header {
     left: 100px;
     justify-content: center;
     align-items: center;
-    background: var(--formbg);
+    /* background: var(--formbg); */
+    background: transparent;
     border: 2px solid var(--formborder);
     border-radius: 20px;
-    backdrop-filter: blur(200px);
+    /* backdrop-filter: blur(200px); */
     overflow: hidden;
     transform: scale(0);
     transition: transform .5s ease, height .2s ease;
@@ -146,6 +159,14 @@ header {
     font-weight: 100;
     padding: 0 35px 0 5px;
 }
+.input-box 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
 .input-box .icon {
     position: absolute;
     right: 8px;
@@ -199,7 +220,7 @@ header {
 .navigation a {
     position: relative;
     font-size: 1.1em;
-    color: white;
+    color: var(--navlink);
     text-decoration: none;
     font-weight: 500;
     margin-left: 40px;
@@ -209,7 +230,8 @@ header {
     position: absolute;
     width: 100%;
     height: 3px;
-    background: white;
+    /* background: white; */
+    background: var(--navlink);
     border-radius: 5px;
     left: 0;
     bottom: -6px;
@@ -240,6 +262,8 @@ header {
     /* color: darkslategray; */
     color: var(--formbtntext);
 }
+
+/* -------------------- FONT ELEMENTS --------------------  */
 
 @font-face {
     font-family: "Blacksword";
