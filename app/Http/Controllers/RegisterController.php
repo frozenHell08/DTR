@@ -14,7 +14,7 @@ class RegisterController extends Controller
             'lastName' => ['required', 'max:255'],
             'mobileno' => ['required', 'min:10', 'max:10', 'unique:users,mobileno'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'min:8', 'max:255'],
+            'password' => ['required', 'min:8', 'max:255', 'confirmed'],
         ]);
 
         $user = User::create($forminput);
@@ -22,14 +22,6 @@ class RegisterController extends Controller
         auth()->login($user);
 
         return redirect ('/')->with('success', 'Account has been created.');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**

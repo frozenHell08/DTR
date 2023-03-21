@@ -18,7 +18,16 @@ class SessionsController extends Controller
             session()->regenerate();
             
             // return redirect('/dashboard')->with('success', 'Welcome Back!');
-            return redirect()->intended('/dashboard/' . auth()->user()->id)->with('success', 'Welcome Back!');
+            // return redirect()->intended('/dashboard/' . auth()->user()->id)->with('success', 'Welcome Back!');
+
+            // --------------------- TEST ------------------------------ //
+
+            return redirect()->intended(route('dashboard', [
+                'user' => auth()->user()
+            ]))->with('success', 'Welcome Back!');
+
+            // --------------------- TEST ------------------------------ //
+
         }
 
         throw ValidationException::withMessages([
