@@ -27,7 +27,9 @@ Route::get('/', function () {
 Route::group([
     'prefix' => 'user',
 ], function () {
-    Route::get('/{id}', [DashboardController::class, '']);
+    Route::post('/register', [RegisterController::class, 'register']);
+    Route::post('/login', [RegisterController::class, 'login']);
+    Route::get('/dashboard/{id}', [DashboardController::class, 'show_details']);
 });
 =======
 Route::post('register', [RegisterController::class, 'register'])->middleware('guest');
