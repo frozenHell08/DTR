@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +21,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing');
-});
+})->name('login');
 
+<<<<<<< Updated upstream
 Route::group([
     'prefix' => 'user',
 ], function () {
     Route::get('/{id}', [DashboardController::class, '']);
 });
+=======
+Route::post('register', [RegisterController::class, 'register'])->middleware('guest');
+
+Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
+
+Route::get('/dashboard/{id}', function($id) {
+    return view ('dashboard', [
+        // 'user' => $id
+    ]);
+})->middleware('auth');
+>>>>>>> Stashed changes
