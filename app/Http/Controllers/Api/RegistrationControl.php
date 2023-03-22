@@ -17,6 +17,7 @@ class RegistrationControl extends Controller
             'mobileno' => ['required', 'min:10', 'max:10', 'unique:users,mobileno'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'min:8', 'max:255', 'confirmed'],
+            'password_confirmation' => ['required', 'min:8', 'max:255'],
         ]);
 
         if ($validation->fails()) {
@@ -25,7 +26,13 @@ class RegistrationControl extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $user = User::create($validation);
+        $user = User::create([
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'mobileno' => $request->mobileno,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
       
         $token = auth()->login($user);
 
@@ -38,11 +45,8 @@ class RegistrationControl extends Controller
 
     public function validateEntry(Request $request) {
         $validation = Validator::make($request->all(), [
-            'firstName' => ['required', 'max:255'],
-            'lastName' => ['required', 'max:255'],
             'mobileno' => ['required', 'min:10', 'max:10', 'unique:users,mobileno'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'min:8', 'max:255', 'confirmed'],
         ]);
 
         if ($validation->fails()) {
