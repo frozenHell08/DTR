@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,9 +17,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('date');
             $table->timestamp('time_in');
-            $table->timestamp('time-out')->nullable();
+            $table->timestamp('time_out')->nullable();
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE time_tables MODIFY COLUMN time_in TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP');
     }
 
     /**
