@@ -30,5 +30,7 @@ Route::get('/dashboard/{user}', function(User $user) {
     return view ('dashboard', [
         'user' => $user
     ]);
-})->name('dashboard')->middleware('auth')
-;
+})->name('dashboard')->middleware('auth');
+
+Route::post('/dashboard/{user}/timein', [DashboardController::class, 'timein'])->name('timein')->middleware('auth');
+Route::post('/dashboard/{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout')->middleware('auth');
