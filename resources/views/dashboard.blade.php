@@ -2,7 +2,7 @@
     <!-- meow welcome! -->
     <h2>Daily Time Record</h2>
 
-    <section>
+    <section class="form-box timecard">
         <h2>Checks</h2>
 
         <form action="#" method="post">

@@ -56,6 +56,24 @@ header {
     border-radius: 10px;
 }
 
+/* -------------------- DASHBOARD ELEMENTS --------------------  */
+
+.form-box.timecard {
+    padding: 20px;
+}
+
+.form-box.timecard .btnTime{
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background: transparent;
+}
+.form-box.timecard .btnTime:hover {
+    background: var(--formbtntext);
+    color: var(--formbtnbg);
+}
+
 /* -------------------- LOGIN ELEMENTS --------------------  */
 
 .wrapper {
