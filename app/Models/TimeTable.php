@@ -13,8 +13,11 @@ class TimeTable extends Model
     protected $fillable = [
         'user_id',
         'date',
-        'time_in',
         'time_out',
+    ];
+
+    protected $guarded = [
+        'time_in'
     ];
 
     public function user(): BelongsTo {
