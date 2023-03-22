@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\RegistrationControl;
+use App\Http\Controllers\Api\StateControl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group([
+    'prefix' => 'auth',
+    'middleware' => 'guest',
+], function () {
+    Route::post('register', [RegistrationControl::class, 'register']);
+    Route::post('register/validate', [RegistrationControl::class, 'register/validateEntry']);
+    Route::post('login', [StateControl::class, 'login']);
 });
+
+
+
+
+// Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');

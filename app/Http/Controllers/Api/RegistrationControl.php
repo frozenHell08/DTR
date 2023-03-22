@@ -35,4 +35,20 @@ class RegistrationControl extends Controller
             'token' => $token
         ], Response::HTTP_CREATED);
     }
+
+    public function validateEntry(Request $request) {
+        $validation = Validator::make($request->all(), [
+            'firstName' => ['required', 'max:255'],
+            'lastName' => ['required', 'max:255'],
+            'mobileno' => ['required', 'min:10', 'max:10', 'unique:users,mobileno'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'min:8', 'max:255', 'confirmed'],
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'errors' => $validation->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
 }
