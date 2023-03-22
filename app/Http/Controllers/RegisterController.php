@@ -14,15 +14,21 @@ class RegisterController extends Controller
             'lastName' => ['required', 'max:255'],
             'mobileno' => ['required', 'min:10', 'max:10', 'unique:users,mobileno'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'min:8', 'max:255', 'confirmed'],
+            'password' => ['required', 'min:8', 'max:255'],
         ]);
 
         $user = User::create($forminput);
       
         auth()->login($user);
 
-        return redirect ('/')->with('success', 'Account has been created.');
+
+
+        return redirect()->intended(route('dashboard', [
+            'user' => auth()->user()
+        ]))->with('success', 'Account has been created.');
     }
+
+        // return redirect ('/')->with('success', 'Account has been created.');
 
     /**
      * Display the specified resource.
