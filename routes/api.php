@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DashboardControl;
 use App\Http\Controllers\Api\RegistrationControl;
 use App\Http\Controllers\Api\StateControl;
 use Illuminate\Http\Request;
@@ -21,12 +22,21 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group([
-    'prefix' => 'auth',
+    'prefix' => 'auth:api',
     'middleware' => 'guest',
 ], function () {
     Route::post('register', [RegistrationControl::class, 'register']);
-    Route::post('register/validate', [RegistrationControl::class, 'register/validateEntry']);
+    Route::post('register/validate', [RegistrationControl::class, 'validateEntry']);
     Route::post('login', [StateControl::class, 'login']);
+});
+
+Route::group([
+    'prefix' => 'dashboard',
+    'middleware' => 'auth'
+], function () {
+    Route::post('logout', [StateControl::class, 'logout']);
+    Route::post('{user}/timein', [DashboardControl::class, 'timein']);
+    Route::post('{user}/timeout', [DashboardControl::class], 'timeout');
 });
 
 
