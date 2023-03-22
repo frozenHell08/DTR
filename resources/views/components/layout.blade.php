@@ -34,6 +34,12 @@
         </div>
     @endif
 
+    @if (session()->has('status'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
+
     <script type="text/JavaScript" src="/src/script.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

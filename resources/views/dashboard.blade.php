@@ -5,11 +5,17 @@
     <section class="form-box timecard">
         <h2>Checks</h2>
 
-        <form action="#" method="post">
+        <form action="{{ route('timein', ['user' => $user->id]) }}" method="post">
+            @csrf
             <button type="submit" class="btnTime">TIME IN</button>
         </form>
 
-        <form action="/dashboard/{id}/timeout" method="post">
+        <!-- <form action="/dashboard/{ $user->id }/timein" method="post">
+            <button type="submit" class="btnTime">TIME IN</button>
+        </form> -->
+
+        <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post">
+            @csrf
             <button type="submit" class="btnTime">TIME OUT</button>
         </form>
     </section>
