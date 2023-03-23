@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class AdminDashboard extends Controller
 {
     public function showDash() {
-        return view ('admindash', [
-        ]);
+        return view ('admin.admindash');
     }
 }

@@ -53,6 +53,6 @@ class StateControl extends Controller
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
             'access_token' => $token,
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\TimeTable;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -29,7 +30,7 @@ class RegisterController extends Controller
 
         if ($user->is_admin) {
             return redirect()->intended(route('admindash', [
-                'user' => auth()->user()
+                // 'timetable' => TimeTable::all()
             ]))->with('success', 'Welcome admin');
         }
 
@@ -37,8 +38,6 @@ class RegisterController extends Controller
             'user' => auth()->user()
         ]))->with('success', 'Account has been created.');
     }
-
-        // return redirect ('/')->with('success', 'Account has been created.');
 
     /**
      * Display the specified resource.

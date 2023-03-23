@@ -41,4 +41,4 @@ Route::group([
     Route::post('{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout');
 });
 
-Route::get('/dashboard/admin', [AdminDashboard::class, 'showDash'])->name('admindash');
+Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
