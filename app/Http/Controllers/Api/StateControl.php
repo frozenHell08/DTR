@@ -29,9 +29,10 @@ class StateControl extends Controller
 
         if (! $token = auth()->guard('api')->attempt($credentials)) {
             JWTAuth::refresh();
+            
             return response()->json([
-                'status' => 'success',
-                'message' => 'Welcome Back!'
+                'status' => 'failed',
+                'message' => 'Unauthorized login'
             ], Response::HTTP_UNAUTHORIZED);
         }
         
