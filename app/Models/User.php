@@ -24,10 +24,11 @@ class User extends Authenticatable
         'mobileno',
         'email',
         'password',
+        'is_admin',
     ];
 
     protected $guarded = [
-        'user_type'
+        
     ];
 
     /**
