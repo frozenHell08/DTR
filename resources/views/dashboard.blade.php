@@ -10,18 +10,24 @@
             <button type="submit" class="btnTime">TIME IN</button>
         </form>
 
-        <!-- <form action="/dashboard/{ $user->id }/timein" method="post">
-            <button type="submit" class="btnTime">TIME IN</button>
-        </form> -->
-
         <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post">
             @csrf
             <button type="submit" class="btnTime">TIME OUT</button>
         </form>
     </section>
 
-    <section>
-        <h2>Time Table</h2>
-        <p>{{ $user->firstName }}</p>
-    </section>
+    <div>
+        ? {{ $user->firstName }} <br>
+        <pre>Date           Time In             Time Out</pre>
+        @foreach( $user->timeData as $time )
+            {{ $time->date }} &nbsp;&nbsp;
+            {{ $time->time_in }} &nbsp;&nbsp;
+            {{ $time->time_out }} <br>
+        @endforeach
+
+        <!-- @foreach ($user->timeData() as $user)
+            <p>{{ $user->time_in }} {{ $user->time_out }}</p>
+            
+        @endforeach -->
+    </div>
 </x-layout>
