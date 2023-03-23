@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     public function register() {
+
         $forminput = request()->validate([
             'firstName' => ['required', 'max:255'],
             'lastName' => ['required', 'max:255'],
@@ -17,19 +18,20 @@ class RegisterController extends Controller
             'password' => ['required', 'min:8', 'max:255'],
         ]);
 
-        // $user = User::create($forminput);
-        $user = User::create([
-            'firstName' => $forminput['firstName'],
-            'lastName' => $forminput['lastName'],
-            'mobileno' => $forminput['mobileno'],
-            'email' => $forminput['email'],
-            'password' => $forminput['password'],
-            'is_admin' => $forminput['email'] === 'admin@admin.com' ? 1 : 0,
-        ]);
-      
+        $user = User::create($forminput);
+
+        if ($user->email === 'admin@admin.com') {
+            $user->is_admin = 1;
+            $user->save();
+        }
+
         auth()->login($user);
 
-
+        if ($user->is_admin) {
+            return redirect()->intended(route('admindash', [
+                'user' => auth()->user()
+            ]))->with('success', 'Welcome admin');
+        }
 
         return redirect()->intended(route('dashboard', [
             'user' => auth()->user()
