@@ -17,7 +17,15 @@ class RegisterController extends Controller
             'password' => ['required', 'min:8', 'max:255'],
         ]);
 
-        $user = User::create($forminput);
+        // $user = User::create($forminput);
+        $user = User::create([
+            'firstName' => $forminput['firstName'],
+            'lastName' => $forminput['lastName'],
+            'mobileno' => $forminput['mobileno'],
+            'email' => $forminput['email'],
+            'password' => $forminput['password'],
+            'is_admin' => $forminput['email'] === 'admin@admin.com' ? 1 : 0,
+        ]);
       
         auth()->login($user);
 
