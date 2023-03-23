@@ -32,5 +32,13 @@ Route::get('/dashboard/{user}', function(User $user) {
     ]);
 })->name('dashboard')->middleware('auth');
 
-Route::post('/dashboard/{user}/timein', [DashboardController::class, 'timein'])->name('timein')->middleware('auth');
-Route::post('/dashboard/{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout')->middleware('auth');
+// Route::post('/dashboard/{user}/timein', [DashboardController::class, 'timein'])->name('timein')->middleware('auth');
+// Route::post('/dashboard/{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout')->middleware('auth');
+
+Route::group([
+    'prefix' => 'dashboard',
+    'middleware' => 'auth:web'
+], function () {
+    Route::post('{user}/timein', [DashboardController::class, 'timein'])->name('timein');
+    Route::post('{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout');
+});
