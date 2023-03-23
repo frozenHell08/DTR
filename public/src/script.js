@@ -20,3 +20,5 @@ btnPopup.addEventListener('click', ()=> {
 iconClose.addEventListener('click', ()=> {
     wrapper.classList.remove('active-popup');
 });
+
+particlesJS.load('particles-container', 'res/particles.js-master/demo/particles.json');
