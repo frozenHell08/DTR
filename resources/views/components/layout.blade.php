@@ -9,7 +9,8 @@
 
 <body class="mine">
     <header>
-        <h2 class="logo">Image here</h2>
+        <!-- <h2 class="logo"></h2> -->
+        <img class = "logo1" src="/res/puncher.png" alt="">
 
         <nav class="navigation">
             <a href="/">Home</a>
@@ -25,8 +26,8 @@
             @endauth
         </nav>
     </header>
+    <div id="particles-container"></div>
     {{ $slot }}
-
 
     @if (session()->has('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
@@ -39,6 +40,22 @@
             <p>{{ session('status') }}</p>
         </div>
     @endif
+
+    <script type="text/JavaScript" src="/src/script.js"></script>
+
+    @if (session()->has('success'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+
+    @if (session()->has('status'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
+    
+    <script src="{{ asset('/res/particles.js-master/particles.js') }}"></script>
 
     <script type="text/JavaScript" src="/src/script.js"></script>
 
