@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class RegistrationControl extends Controller
 {
@@ -34,7 +35,10 @@ class RegistrationControl extends Controller
             'password' => $request->password,
         ]);
       
-        $token = auth()->login($user);
+        auth()->login($user);
+
+        $token = JWTAuth::fromUser($user);
+        // $token = JWTAuth::class->login($user);
 
         return response()->json([
             'message' => 'Account has been created.',
