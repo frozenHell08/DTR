@@ -25,10 +25,11 @@ class User extends Authenticatable implements JWTSubject
         'mobileno',
         'email',
         'password',
+        'is_admin',
     ];
 
     protected $guarded = [
-        'user_type'
+        
     ];
 
     /**
