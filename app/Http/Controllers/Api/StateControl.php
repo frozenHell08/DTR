@@ -27,13 +27,13 @@ class StateControl extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth()->guard('api')->attempt($credentials)) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Welcome Back!'
             ], Response::HTTP_UNAUTHORIZED);
         }
-
+        
         return $this->respondWithToken($token);
     }
 
@@ -48,10 +48,9 @@ class StateControl extends Controller
     protected function respondWithToken($token) {
         return response()->json([
             'message' => 'User logged in',
-            'account' => auth()->user(),
+            'account' => auth()->guard('api')->user(),
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
-            'payload' => JWTAuth::payload(),
             'access_token' => $token,
         ], Response::HTTP_CREATED);
     }

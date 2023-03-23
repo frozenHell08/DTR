@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group([
-    'prefix' => 'auth:api',
-    'middleware' => 'guest',
+    'prefix' => 'auth',
+    'middleware' => ['guest'],
 ], function () {
     Route::post('register', [RegistrationControl::class, 'register']);
     Route::post('register/validate', [RegistrationControl::class, 'validateEntry']);
@@ -32,7 +32,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'dashboard',
-    'middleware' => 'auth'
+    'middleware' => 'auth:api'
 ], function () {
     Route::post('logout', [StateControl::class, 'logout']);
     Route::post('{user}/timein', [DashboardControl::class, 'timein']);
