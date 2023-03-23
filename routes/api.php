@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'auth',
-    'middleware' => ['guest'],
+    'middleware' => 'guest',
 ], function () {
     Route::post('register', [RegistrationControl::class, 'register']);
     Route::post('register/validate', [RegistrationControl::class, 'validateEntry']);
@@ -38,8 +38,3 @@ Route::group([
     Route::post('{user}/timein', [DashboardControl::class, 'timein']);
     Route::post('{user}/timeout', [DashboardControl::class], 'timeout');
 });
-
-
-
-
-// Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
