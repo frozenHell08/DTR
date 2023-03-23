@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 
 * {
     margin: 0;
@@ -6,17 +7,18 @@
     box-sizing: border-box;
 }
 :root {
+    --bodybg : #161E31;
     --navtext : white;
-    --navlink : #3007a3;
+    --navlink : #ffffff;
     --formtext : #fff;
     --forminputtext : white;
-    --formicons : #fff;
-    --formicontext : #4e03cf;
+    --formicons : #8b91b3;
+    --formicontext : #161E31;
     --formlabel : #fff;
     --formNlabel : #fff;
     --formlink : #dd4848;
 
-    --formbtntext : #4404cc;
+    --formbtntext : #161E31;
     --formbtnbg : rgb(210, 209, 209);
     --formbg : white;
     --formborder : rgb(255, 255, 255, .5);
@@ -28,7 +30,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('/res/loginbg.jpg') no-repeat;
+    /* background: url('/res/loginbg.jpg') no-repeat; */
+    background-color: var(--bodybg);
     background-size: cover;
     background-position: center;
 }
@@ -85,20 +88,26 @@ header {
 
 .wrapper {
     display: flex;
-    position: absolute;
-    width: 335px; /* 335px */
-    height: 440px;
-    left: 100px;
+    /* position: absolute; */
+    width: 1028px; /* 335px */
+    height: 700px; /* 440px */
+    /* left: 100px; */
     justify-content: center;
     align-items: center;
     /* background: var(--formbg); */
-    background: transparent;
-    border: 2px solid var(--formborder);
+    /* background: transparent; */
+    /* border: 2px solid var(--formborder); */
     border-radius: 20px;
     /* backdrop-filter: blur(200px); */
     overflow: hidden;
     transform: scale(0);
     transition: transform .5s ease, height .2s ease;
+
+    /* box-shadow: 1px 1px 20px var(--bodybg); */
+    box-shadow: 10px -10px 4px black;
+    /* margin-left: 350px; */
+    background: #2D3250;
+    /* border: transparent; */
 }
 .wrapper.active-popup {
     transform: scale(1);
@@ -107,8 +116,13 @@ header {
     height: 600px;
 }
 .wrapper .form-box {
-    width: 100%;
-    padding: 40px;
+    width: 40%;
+    position: relative;
+    left: -26%;
+
+    /* padding: 40px; */
+
+    /* padding-left: 70px; */
 }
 .wrapper .form-box.login {
     transition: transform .18s ease;
@@ -116,21 +130,24 @@ header {
 }
 .wrapper.active .form-box.login {
     transition: none;
-    transform: translateX(-400px);
+    /* transform: translateX(-400px); */
+    transform: translateX(-490px);
 }
 .wrapper .form-box.register {
     position: absolute;
     transition: none;
-    transform: translateX(400px);
+    transform: translateX(490px);
+
+    margin-left: 320px;
 }
 .wrapper.active .form-box.register {
     transition: transform .18s ease;
     transform: translateX(0);
 }
 .wrapper .icon-close {
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    top: -46.8%;
+    right: -17.9%;
     width: 45px;
     height: 45px;
     background: var(--formicons);
@@ -144,10 +161,22 @@ header {
     z-index: 1;
 }
 .form-box h2 {
-    font-family: Visby;
+    /* font-family: Visby; */
     font-size: 2em;
     color: var(--formtext);
-    text-align: center;
+    /* text-align: center; */
+
+    font-family: Railway, sans-serif;
+    font-weight: 700;
+    text-align: left;
+}
+.form-box p { /* edited */
+    margin-top:10px;
+    font-family: Railway,sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--formtext);
+    text-align: left;
 }
 .input-box {
     position: relative;
@@ -155,6 +184,10 @@ header {
     height: 50px;
     border-bottom: 2px solid var(--forminputborder);
     margin: 30px 0; 
+
+    /* height: 60px; */
+    /* margin: 7px 0; */
+    /* background: #424769; */
 }
 .input-box label {
     position: absolute;
@@ -163,10 +196,14 @@ header {
     transform: translateY(-50%);
     font-size: 1em;
     color: var(--formlabel);
-    font-family: Poppins;
+    /* font-family: Poppins; */
     font-weight: 500;
     pointer-events: none;
     transition: .5s;
+
+    font-size: 15px;
+    /* color: #5E6590; */
+    font-family: Railway, sans-serif;
 }
 .input-box input:focus ~ label,
 .input-box input:valid ~ label,
@@ -200,9 +237,9 @@ input:-webkit-autofill:active {
     line-height: 57px;
 }
 .btn {
-    width: 100%;
+    /* width: 100%;
     height: 45px;
-    background: var(--formbtnbg);
+    background: var(--formbtnbg); */
     border: none;
     outline: none;
     border-radius: 5px;
@@ -212,24 +249,37 @@ input:-webkit-autofill:active {
     font-weight: 800;
     font-family: Poppins;
     transition: .5s ease;
+
+    width: 30%;
+    height: 50px;
+    margin-top:25px;
+    background: #F9B17A;
+    /* color: #161E31; */
 }
 .btn:hover {
-    background: var(--formbtntext);
-    color: var(--formbtnbg);
+    /* background: var(--formbtntext);
+    color: var(--formbtnbg); */
     transition: .5s ease;
+
+    background: white;
+    color: var(--formbtntext);
 }
 .login-register {
     font-size: .9em;
     color: var(--formNlabel);
-    text-align: center;
+    /* text-align: center; */
     font-weight: 500;
-    margin: 25px 0 10px;
+    /* margin: 25px 0 10px; */
+
+    font-family:Railway, sans-serif;
 }
 .login-register p a {
     color: var(--formlink);
     text-decoration: none;
     font-weight: 600;
     font-family: Poppins;
+
+    font-size: 15px;
 }
 .login-register p a:hover {
     text-decoration: underline;
@@ -238,6 +288,7 @@ input:-webkit-autofill:active {
 /* -------------------- NAVIGATION ELEMENTS --------------------  */
 
 .logo {
+    background-image: url(/public/res/puncher.png) ;
     font-size: 2em;
     color: aliceblue;
     user-select: none;
@@ -277,10 +328,12 @@ input:-webkit-autofill:active {
     border-radius: 6px;
     cursor: pointer;
     font-size: 1.1em;
-    font-family: Visby;
+    /* font-family: Visby; */
     color: white;
     margin-left: 40px;
     transition: .5s;
+
+    font-family: Railway, sans-serif;
 }
 .navigation .btnLogin:hover {
     background: white;
@@ -298,3 +351,30 @@ input:-webkit-autofill:active {
     font-family: "Visby";
     src: url("/res/VisbyRegular.woff");
 }
+
+.email{
+    padding-left: 13px;
+}
+
+.password{
+    padding-left: 13px;
+}
+
+.mou{
+    /* margin-left:500px; */
+    /* float:right; */
+    position: absolute;
+    right: 0;
+    width: 50%; 
+    height: 100%;
+}
+
+.logo1{
+    /* background: url("res/puncher.png"); */
+    width:200px;
+    /* position:absolute; */
+}
+
+/* 
+* rename mou class . create a section for the login register 
+*/
