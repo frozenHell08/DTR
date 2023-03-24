@@ -14,7 +14,7 @@
     --forminputtext : white;
     --formicons : #8b91b3;
     --formicontext : #161E31;
-    --formlabel : #fff;
+    --formlabel : #b1b4c9;
     --formNlabel : #fff;
     --formlink : #dd4848;
 
@@ -87,7 +87,7 @@ header {
 /* -------------------- LOGIN ELEMENTS --------------------  */
 
 .wrapper {
-    display: flex;
+    /* display: flex; */
     /* position: absolute; */
     width: 1028px; /* 335px */
     height: 700px; /* 440px */
@@ -99,12 +99,12 @@ header {
     /* border: 2px solid var(--formborder); */
     border-radius: 20px;
     /* backdrop-filter: blur(200px); */
-    overflow: hidden;
+    /* overflow: hidden; */
     transform: scale(0);
     transition: transform .5s ease, height .2s ease;
 
     /* box-shadow: 1px 1px 20px var(--bodybg); */
-    box-shadow: 10px -10px 4px black;
+    /* box-shadow: 10px -10px 4px black; */
     /* margin-left: 350px; */
     background: #2D3250;
     /* border: transparent; */
@@ -112,17 +112,36 @@ header {
 .wrapper.active-popup {
     transform: scale(1);
 }
-.wrapper.active {
+/* .wrapper.active {
     height: 600px;
+} */
+.wrapper .form-section {
+    display: flex;
+    /* width: 100%; */
+    justify-items: center;
+    align-items: inherit;
+
+    position: relative;
+    left: 0;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    justify-content: space-between;
 }
 .wrapper .form-box {
-    width: 40%;
+    /* width: 38%; */
     position: relative;
-    left: -26%;
+    /* left: -26%; */
 
     /* padding: 40px; */
 
     /* padding-left: 70px; */
+
+    width: 70%;
+    justify-items: center;
+    vertical-align: middle;
+    margin: 0 75px;
 }
 .wrapper .form-box.login {
     transition: transform .18s ease;
@@ -138,16 +157,17 @@ header {
     transition: none;
     transform: translateX(490px);
 
-    margin-left: 320px;
+    /* margin-left: 320px; */
 }
 .wrapper.active .form-box.register {
     transition: transform .18s ease;
     transform: translateX(0);
 }
 .wrapper .icon-close {
-    position: relative;
-    top: -46.8%;
-    right: -17.9%;
+    position: absolute;
+    /* top: -46.8%; */
+    /* right: -17.9%; */
+    /* right: -471px; */
     width: 45px;
     height: 45px;
     background: var(--formicons);
@@ -156,9 +176,12 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom-left-radius: 20px;
+    /* border-bottom-left-radius: 20px; */
     cursor: pointer;
     z-index: 1;
+
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
 }
 .form-box h2 {
     /* font-family: Visby; */
@@ -169,6 +192,7 @@ header {
     font-family: Railway, sans-serif;
     font-weight: 700;
     text-align: left;
+    padding-bottom: 10px;
 }
 .form-box p { /* edited */
     margin-top:10px;
@@ -183,7 +207,7 @@ header {
     width: 100%;
     height: 50px;
     border-bottom: 2px solid var(--forminputborder);
-    margin: 30px 0; 
+    margin: 25px 0; 
 
     /* height: 60px; */
     /* margin: 7px 0; */
@@ -201,7 +225,7 @@ header {
     pointer-events: none;
     transition: .5s;
 
-    font-size: 15px;
+    font-size: .9em;
     /* color: #5E6590; */
     font-family: Railway, sans-serif;
 }
@@ -216,7 +240,7 @@ header {
     background: transparent;
     border: none;
     outline: none;
-    font-size: 1em;
+    font-size: .9em;
     color: var(--forminputtext);
     font-weight: 100;
     padding: 0 35px 0 5px;
@@ -252,7 +276,7 @@ input:-webkit-autofill:active {
 
     width: 30%;
     height: 50px;
-    margin-top:25px;
+    margin-top:15px;
     background: #F9B17A;
     /* color: #161E31; */
 }
@@ -289,6 +313,7 @@ input:-webkit-autofill:active {
 
 .logo {
     background-image: url(/public/res/puncher.png) ;
+    height: 50px;
     font-size: 2em;
     color: aliceblue;
     user-select: none;
@@ -319,6 +344,14 @@ input:-webkit-autofill:active {
     transform-origin: left;
     transform: scaleX(1);
 }
+/* .navigation span {
+    position: relative;
+    font-size: 1.1em;
+    color: var(--navlink);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+} */
 .navigation .btnLogin {
     width: 130px;
     height: 50px;
@@ -352,14 +385,6 @@ input:-webkit-autofill:active {
     src: url("/res/VisbyRegular.woff");
 }
 
-.email{
-    padding-left: 13px;
-}
-
-.password{
-    padding-left: 13px;
-}
-
 .mou{
     /* margin-left:500px; */
     /* float:right; */
@@ -367,12 +392,8 @@ input:-webkit-autofill:active {
     right: 0;
     width: 50%; 
     height: 100%;
-}
-
-.logo1{
-    /* background: url("res/puncher.png"); */
-    width:200px;
-    /* position:absolute; */
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 /* 
