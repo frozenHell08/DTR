@@ -33,7 +33,7 @@ class DashboardControl extends Controller
             'status' => 'success',
             'message' => 'Time in success!',
             'time-in' => $timein
-        ], 200);
+        ], Response::HTTP_CREATED);
     }
 
     public function timeout(Request $request) {
@@ -63,6 +63,14 @@ class DashboardControl extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Time out success!'
-        ], 200);
+        ], Response::HTTP_OK);
+    }
+
+    public function selftable() {
+        $user = auth()->user();
+
+        return response()->json([
+            'time data' => $user->timedata
+        ]);
     }
 }
