@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboard;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
@@ -32,9 +33,6 @@ Route::get('/dashboard/{user}', function(User $user) {
     ]);
 })->name('dashboard')->middleware('auth');
 
-// Route::post('/dashboard/{user}/timein', [DashboardController::class, 'timein'])->name('timein')->middleware('auth');
-// Route::post('/dashboard/{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout')->middleware('auth');
-
 Route::group([
     'prefix' => 'dashboard',
     'middleware' => 'auth:web'
@@ -42,3 +40,5 @@ Route::group([
     Route::post('{user}/timein', [DashboardController::class, 'timein'])->name('timein');
     Route::post('{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout');
 });
+
+Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');

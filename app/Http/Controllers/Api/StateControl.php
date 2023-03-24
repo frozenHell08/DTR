@@ -29,9 +29,10 @@ class StateControl extends Controller
 
         if (! $token = auth()->guard('api')->attempt($credentials)) {
             JWTAuth::refresh();
+            
             return response()->json([
-                'status' => 'success',
-                'message' => 'Welcome Back!'
+                'status' => 'failed',
+                'message' => 'Unauthorized login'
             ], Response::HTTP_UNAUTHORIZED);
         }
         
@@ -53,6 +54,6 @@ class StateControl extends Controller
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
             'access_token' => $token,
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 }
