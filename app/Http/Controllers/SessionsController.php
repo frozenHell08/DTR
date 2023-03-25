@@ -16,9 +16,11 @@ class SessionsController extends Controller
 
         if (auth()->attempt($forminput)) {
             session()->regenerate();
-            
-            // return redirect('/dashboard')->with('success', 'Welcome Back!');
-            return redirect()->intended('/dashboard/' . auth()->user()->id)->with('success', 'Welcome Back!');
+
+            return redirect()->intended(route('dashboard', [
+                'user' => auth()->user(),
+                'date' => now()
+            ]))->with('success', 'Welcome Back!');
         }
 
         throw ValidationException::withMessages([
