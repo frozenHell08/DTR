@@ -23,6 +23,10 @@
     --formbg : white;
     --formborder : rgb(255, 255, 255, .5);
     --forminputborder : #fff;
+
+    --dashh2 : #fff;
+    --dashbtntime : #d7d9f9;
+    --dashhbg : #0e1524;
 }
 
 body {
@@ -55,7 +59,7 @@ header {
     left: 0;
 }
 
-/* -------------------- FLASH ELEMENTS --------------------  */
+/* ---------------------------------------- FLASH ELEMENTS ----------------------------------------  */
 
 .session {
     position: fixed;
@@ -66,25 +70,104 @@ header {
     border-radius: 10px;
 }
 
-/* -------------------- DASHBOARD ELEMENTS --------------------  */
+/* ---------------------------------------- DASHBOARD ELEMENTS ----------------------------------------  */
+
+.dashboard {
+    width: 85vw;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: -30vh;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.dashboard h2 {
+    color: var(--dashh2);
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    font-family: Visby;
+}
+.dashheader {
+    width: 100%;
+    padding: 30px 0;
+    background: var(--dashhbg);
+    border-radius: 40px;
+    display: flex;
+    align-content: space-between;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.dashheader .btnTime {
+    width: 140px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #ffffff00;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    /* font-family: Visby; */
+    color: white;
+    /* margin-left: 40px; */
+    /* margin: 10px; */
+    transition: .5s;
+
+    font-family: Railway, sans-serif;
+    font-weight: 700;
+}
+/* .dashheader .btnTime:hover {
+    background: var(--dashbtntime);
+    color: var(--formbtntext);
+} */
 
 .form-box.timecard {
+    width: 25%;
     padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
-
-.form-box.timecard .btnTime{
+/* .form-box.timecard .btnTime {
     width: 200px;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
     background: transparent;
-}
-.form-box.timecard .btnTime:hover {
+} */
+/* .form-box.timecard .btnTime:hover {
     background: var(--formbtntext);
     color: var(--formbtnbg);
+} */
+.display {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 50%;
+    /* min-width: 30%; */
+}
+.display span {
+    color: var(--dashh2);
+    width: 30%;
+    display: inline-block;
+    font-size: 1.3em;
+    font-family: Visby;
+}
+.display span:first-of-type {
+    width: 40%;
 }
 
-/* -------------------- LOGIN ELEMENTS --------------------  */
+/* ---------------------------------------- LOGIN ELEMENTS ----------------------------------------  */
 
 .wrapper {
     /* display: flex; */
@@ -309,7 +392,7 @@ input:-webkit-autofill:active {
     text-decoration: underline;
 }
 
-/* -------------------- NAVIGATION ELEMENTS --------------------  */
+/* ---------------------------------------- NAVIGATION ELEMENTS ----------------------------------------  */
 
 .logo {
     background-image: url(/public/res/puncher.png) ;
@@ -352,7 +435,8 @@ input:-webkit-autofill:active {
     font-weight: 500;
     margin-left: 40px;
 } */
-.navigation .btnLogin {
+.navigation .btnLogin,
+.navigation .btnLogout {
     width: 130px;
     height: 50px;
     background: transparent;
@@ -368,13 +452,17 @@ input:-webkit-autofill:active {
 
     font-family: Railway, sans-serif;
 }
-.navigation .btnLogin:hover {
+.navigation .btnLogin:hover,
+.navigation .btnLogout:hover {
     background: white;
     /* color: darkslategray; */
     color: var(--formbtntext);
 }
+.navigation .formwrapper {
+    display: inline-flex;
+}
 
-/* -------------------- FONT ELEMENTS --------------------  */
+/* ---------------------------------------- FONT ELEMENTS ----------------------------------------  */
 
 @font-face {
     font-family: "Blacksword";
