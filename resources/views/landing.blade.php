@@ -6,9 +6,6 @@
         </span>
         <img class = "mou" src="res/1.png" alt="">
         <div class="form-section">
-        <!-- <span class="icon-close">
-            <ion-icon name="close-outline"></ion-icon>
-        </span> -->
             <div class="form-box login">
                 <h2>Sign In</h2>
                 <p>Stay updated with your time.</p>
