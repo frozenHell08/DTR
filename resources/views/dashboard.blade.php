@@ -43,15 +43,25 @@
                     <tbody>
                         @foreach ($timetable as $timeentry)
                         <tr>
+                            @php
+                            $outentry = $timeentry->timeout;
+                            @endphp
                             <td> {{ \Carbon\Carbon::parse($timeentry->date)->format('F d, Y') }} </td>
-                            <td> {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
+                            <td> 
+                                {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
                                 {{ \Carbon\Carbon::parse($timeentry->time_in)->format('H:i.s') }} 
                             </td>
                             
-                            <td> {{ \Carbon\Carbon::parse($timeentry->time_out)->format('F d, Y') }}
-                                &nbsp;&nbsp;|&nbsp;&nbsp;
-                                {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }} 
+                            <td> 
+                                @if ( is_null($timeouttoday) )
+                                    meow
+                                @else
+                                    {{ \Carbon\Carbon::parse($timeentry->time_out)->format('F d, Y') }}
+                                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                                    {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }} 
+                                @endif
+                                
                             </td>
                             <td> {{ $timeentry->duration }} </td>
                         </tr>
