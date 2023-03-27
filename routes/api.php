@@ -29,6 +29,11 @@ Route::group([
     Route::post('register/validate', [RegistrationControl::class, 'validateEntry']);
     Route::post('login', [StateControl::class, 'login']);
 });
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 
 Route::group([
     'prefix' => 'dashboard',
@@ -38,6 +43,7 @@ Route::group([
     Route::post('{user}/timein', [DashboardControl::class, 'timein']);
     Route::post('{user}/timeout', [DashboardControl::class, 'timeout']);
     Route::get('{user}', [DashboardControl::class, 'selftable']);
+<<<<<<< Updated upstream
 });
 
 Route::post('time', [DashboardControl::class, 'timeduration']);

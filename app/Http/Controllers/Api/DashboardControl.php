@@ -73,6 +73,11 @@ class DashboardControl extends Controller
             'time data' => $user->timedata->sortDesc()->values()->all()
         ]);
     }
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 
     public function timeduration(Request $request) {
 
@@ -97,4 +102,8 @@ class DashboardControl extends Controller
             // 'duration' => $durationFormatted
         ]);
     }
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 }

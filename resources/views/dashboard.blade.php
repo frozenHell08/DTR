@@ -43,6 +43,7 @@
                     <tbody>
                         @foreach ($timetable as $timeentry)
                         <tr>
+<<<<<<< Updated upstream
                             <td> {{ \Carbon\Carbon::parse($timeentry->date)->format('F d, Y') }} </td>
                             <td> {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
