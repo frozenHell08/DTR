@@ -39,3 +39,5 @@ Route::group([
     Route::post('{user}/timeout', [DashboardControl::class, 'timeout']);
     Route::get('{user}', [DashboardControl::class, 'selftable']);
 });
+
+Route::post('time', [DashboardControl::class, 'timeduration']);
