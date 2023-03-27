@@ -24,13 +24,35 @@
 
             <div class="display">
                 <span>Today is {{ now()->format('F d, Y') }}</span>
-                <span>Time-in : 08:30.45</span>
-                <span>Time out : {{ now()->format('H:i.s') }} </span>
+                <span>Time-in : {{ $timeintoday }} </span>
+                <span>Time out : {{ $timeouttoday }} </span>
             </div>
 
         </section>
 
-        <section>??</section>
+        <section class="dashdisplay">
+            <div class="timetable">
+                <table>
+                    <thead>
+                        <th>Date</th>
+                        <th>Time in</th>
+                        <th>Time out</th>
+                        <th>Duration</th>
+                    </thead>
+                    
+                    <tbody>
+                        @foreach ($timetable as $timeentry)
+                        <tr>
+                            <td> {{ $timeentry->date }} </td>
+                            <td> {{ $timeentry->time_in }} </td>
+                            <td> {{ $timeentry->time_out }} </td>
+                            <td> todo </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 
 

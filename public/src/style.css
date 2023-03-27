@@ -64,14 +64,14 @@ header {
 
 .dashboard {
     width: 85vw;
-    height: 20vh;
+    /* height: 20vh; */
     display: flex;
     flex-direction: column;
     position: relative;
-    top: -30vh;
+    top: -20vh;
     align-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: space-evenly;
 }
 .dashboard h2 {
@@ -81,9 +81,10 @@ header {
     align-items: center;
     font-family: Visby;
 }
-.dashheader {
+.dashheader, .dashdisplay {
     width: 100%;
     padding: 30px 0;
+    margin: 10px 0;
     background: var(--dashhbg);
     border-radius: 40px;
     display: flex;
