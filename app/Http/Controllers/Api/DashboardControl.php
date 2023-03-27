@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 
 class DashboardControl extends Controller
 {
-    public function timein(Request $request) {
+    public function timein() {
         $date = Carbon::now()->toDateString();
 
         $exists = TimeTable::where('user_id', auth()->user()->id)
@@ -29,14 +29,14 @@ class DashboardControl extends Controller
             'time_in' => now()
         ]);
 
-        return redirect()->json([
+        return response()->json([
             'status' => 'success',
             'message' => 'Time in success!',
             'time-in' => $timein
         ], Response::HTTP_CREATED);
     }
 
-    public function timeout(Request $request) {
+    public function timeout() {
         $date = Carbon::now()->toDateString();
 
         $exists = TimeTable::where('user_id', auth()->user()->id)
@@ -60,9 +60,19 @@ class DashboardControl extends Controller
 
         $userTime->update(['time_out' => now()]);
 
+        $start = Carbon::parse($userTime->time_in);
+        $end = Carbon::parse($userTime->time_out);
+
+        $duration = $start->diff($end);
+        $durationFormatted = $duration->format('%h hours %i minutes');
+
+        $userTime->update(['duration' => $durationFormatted]);
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Time out success!'
+            'message' => 'Time out success!',
+            'duration' => $durationFormatted,
+            'dayrecord' => $userTime
         ], Response::HTTP_OK);
     }
 
