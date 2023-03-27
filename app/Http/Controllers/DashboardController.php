@@ -8,11 +8,37 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function timein() {
+    public function display() {
+        $tablerecord = TimeTable::where('user_id', auth()->user()->id)
+                                ->whereDate('date', now()->toDateString())
+                                ->first();
 
+        // $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
+
+        if (is_null($tablerecord)) {
+            $timeintoday = '--:--';
+            $timeouttoday = '--:--';
+        } else {
+            $timeouttoday = (is_null($tablerecord->time_out)) ? '--:--' : Carbon::parse($tablerecord->time_out)->format('H:i.s');
+            $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
+        }
+
+        // $timeouttoday = (is_null($tablerecord->time_out)) ? '--:--' : Carbon::parse($tablerecord->time_out)->format('H:i.s');
+
+        // $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
+
+        $user = auth()->user();
+        $timetable = auth()->user()->timeData;
+
+        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday'));
+    }
+
+    public function timein() {
         $date = Carbon::now()->toDateString();
 
         $exists = TimeTable::where('user_id', auth()->user()->id)
