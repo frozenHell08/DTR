@@ -68,11 +68,28 @@ class DashboardControl extends Controller
 
     public function selftable() {
         $user = auth()->user();
-        $timedata = $user->timedata;
-        $sorted = $timedata->sortByDesc('date');
 
         return response()->json([
-            'time data' => $sorted
+            'time data' => $user->timedata->sortDesc()->values()->all()
+        ]);
+    }
+
+    public function timeduration(Request $request) {
+        $collection = collect();
+
+        foreach (TimeTable::all() as $entry) {
+            $start = Carbon::parse($entry->time_in);
+            $end = Carbon::parse($entry->time_out);
+    
+            $duration = $start->diff($end);
+    
+            $durationFormatted = $duration->format('%h hours %i minutes');
+
+            $collection->push([$entry->user_id, $entry->date, $start, $end, $durationFormatted]);
+        }
+
+        return response()->json([
+            'col' => $collection
         ]);
     }
 }
