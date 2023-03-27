@@ -41,8 +41,9 @@
             <p>{{ session('status') }}</p>
         </div>
     @endif
-    
-    <script src="{{ asset('/res/particles.js-master/particles.js') }}"></script>
+    <!-- <script src="{{ asset('/res/particles.js-master/particles.js') }}"></script> -->
+    <script src="{{ url('res/particles.js-master/particles.js') }}"></script>
+    <!-- <script src="/public/res/particles.js-master/particles.js"></script> -->
 
     <script type="text/JavaScript" src="/src/script.js"></script>
 

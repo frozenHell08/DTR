@@ -76,6 +76,14 @@ class DashboardController extends Controller
 
         $userTime->update(['time_out' => now()]);
 
+        $start = Carbon::parse($userTime->time_in);
+        $end = Carbon::parse($userTime->time_out);
+
+        $duration = $start->diff($end);
+        $durationFormatted = $duration->format('%h hours %i minutes');
+
+        $userTime->update(['duration' => $durationFormatted]);
+
         return redirect()->back()->with('status', 'Time out success!');
     }
 }

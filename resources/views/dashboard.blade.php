@@ -53,7 +53,7 @@
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
                                 {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }} 
                             </td>
-                            <td> todo </td>
+                            <td> {{ $timeentry->duration }} </td>
                         </tr>
                         @endforeach
                     </tbody>
