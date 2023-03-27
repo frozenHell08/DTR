@@ -28,10 +28,6 @@ class DashboardController extends Controller
             $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
         }
 
-        // $timeouttoday = (is_null($tablerecord->time_out)) ? '--:--' : Carbon::parse($tablerecord->time_out)->format('H:i.s');
-
-        // $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
-
         $user = auth()->user();
         $timetable = auth()->user()->timeData;
 

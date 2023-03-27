@@ -43,9 +43,16 @@
                     <tbody>
                         @foreach ($timetable as $timeentry)
                         <tr>
-                            <td> {{ $timeentry->date }} </td>
-                            <td> {{ $timeentry->time_in }} </td>
-                            <td> {{ $timeentry->time_out }} </td>
+                            <td> {{ \Carbon\Carbon::parse($timeentry->date)->format('F d, Y') }} </td>
+                            <td> {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                {{ \Carbon\Carbon::parse($timeentry->time_in)->format('H:i.s') }} 
+                            </td>
+                            
+                            <td> {{ \Carbon\Carbon::parse($timeentry->time_out)->format('F d, Y') }}
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }} 
+                            </td>
                             <td> todo </td>
                         </tr>
                         @endforeach

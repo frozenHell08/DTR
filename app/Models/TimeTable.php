@@ -14,10 +14,11 @@ class TimeTable extends Model
         'user_id',
         'date',
         'time_out',
+        'duration'
     ];
 
     protected $guarded = [
-        'time_in'
+        'time_in',
     ];
 
     public function user(): BelongsTo {

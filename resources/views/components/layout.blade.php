@@ -5,6 +5,7 @@
 <title>DTR</title>
 
 <link rel="stylesheet" href="/src/style.css">
+<link rel="stylesheet" href="/src/media.css">
 <link rel="stylesheet" href="/src/animations.css">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 
