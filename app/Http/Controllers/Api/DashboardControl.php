@@ -73,15 +73,8 @@ class DashboardControl extends Controller
             'time data' => $user->timedata->sortDesc()->values()->all()
         ]);
     }
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
 
     public function timeduration(Request $request) {
-
-
         $collection = collect();
 
         foreach (TimeTable::all() as $entry) {
@@ -97,13 +90,6 @@ class DashboardControl extends Controller
 
         return response()->json([
             'col' => $collection
-            // 'start' => $start,
-            // 'end' => $end,
-            // 'duration' => $durationFormatted
         ]);
     }
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 }
