@@ -36,6 +36,6 @@ Route::group([
 ], function () {
     Route::post('logout', [StateControl::class, 'logout']);
     Route::post('{user}/timein', [DashboardControl::class, 'timein']);
-    Route::post('{user}/timeout', [DashboardControl::class], 'timeout');
+    Route::post('{user}/timeout', [DashboardControl::class, 'timeout']);
     Route::get('{user}', [DashboardControl::class, 'selftable']);
 });

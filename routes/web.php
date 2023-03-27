@@ -27,11 +27,18 @@ Route::post('register', [RegisterController::class, 'register'])->middleware('gu
 Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('/dashboard/{user}', function(User $user) {
-    return view ('dashboard', [
-        'user' => $user
-    ]);
-})->name('dashboard')->middleware('auth');
+// Route::get('/dashboard/{user}', function(User $user) {
+//     // $date = session('date');
+
+//     return view ('dashboard', [
+//        'user' => $user,
+//     //    'date' => $date,
+//     //    'datenow' => session()->get('datenow'),
+//     //    'timein' => session()->get('timein'),
+//     ]);
+// })->name('dashboard')->middleware('auth');
+
+Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard')->middleware('auth');
 
 Route::group([
     'prefix' => 'dashboard',
