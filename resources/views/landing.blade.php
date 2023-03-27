@@ -4,7 +4,7 @@
         <span class="icon-close">
             <ion-icon name="close-outline"></ion-icon>
         </span>
-        <img class = "mou" src="res/1.png" alt="">
+        <img class = "mou" src="res/clock.png" alt="">
         <div class="form-section">
             <div class="form-box login">
                 <h2>Sign In</h2>
