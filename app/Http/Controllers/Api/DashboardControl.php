@@ -68,11 +68,9 @@ class DashboardControl extends Controller
 
     public function selftable() {
         $user = auth()->user();
-        $timedata = $user->timedata;
-        $sorted = $timedata->sortByDesc('date');
 
         return response()->json([
-            'time data' => $sorted
+            'time data' => $user->timedata->sortDesc()->values()->all()
         ]);
     }
 }
