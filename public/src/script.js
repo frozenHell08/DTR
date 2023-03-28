@@ -22,3 +22,11 @@ iconClose.addEventListener('click', ()=> {
 });
 
 particlesJS.load('particles-container', 'res/particles.js-master/demo/particles.json');
+
+function confirmTimeout() {
+    if (confirm("really?")) {
+        return true;
+    } else {
+        return false;
+    }
+}
