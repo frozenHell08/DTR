@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'mobileno',
         'email',
         'password',
+        'profile_picture',
         'is_admin',
     ];
 
