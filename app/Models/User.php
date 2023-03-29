@@ -24,6 +24,7 @@ class User extends Authenticatable
         'mobileno',
         'email',
         'password',
+        'profile_picture',
         'is_admin',
     ];
 
