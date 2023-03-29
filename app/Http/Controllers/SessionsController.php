@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\TimeTable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -16,27 +18,21 @@ class SessionsController extends Controller
 
         if (auth()->attempt($forminput)) {
             session()->regenerate();
-            
-            // return redirect('/dashboard')->with('success', 'Welcome Back!');
-            // return redirect()->intended('/dashboard/' . auth()->user()->id)->with('success', 'Welcome Back!');
 
-            // --------------------- TEST ------------------------------ //
+            if (auth()->user()->is_admin) {
+                return redirect()->intended(route('admindash', [
+                    'timetable' => TimeTable::all()
+                ]))->with('success', 'Admin!');
+            }
 
             return redirect()->intended(route('dashboard', [
                 'user' => auth()->user()
             ]))->with('success', 'Welcome Back!');
-
-            // --------------------- TEST ------------------------------ //
-
         }
 
         throw ValidationException::withMessages([
             'email' => 'Provided credentials are not valid.'
         ]);
-
-        // return back()->withErrors([
-        //     'email' => 'Provided credentials are not valid.'
-        // ]);
     }
     
     public function destroy() {

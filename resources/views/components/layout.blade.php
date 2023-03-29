@@ -5,21 +5,24 @@
 <title>DTR</title>
 
 <link rel="stylesheet" href="/src/style.css">
+<link rel="stylesheet" href="/src/media.css">
+<link rel="stylesheet" href="/src/animations.css">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 
 <body class="mine">
     <header>
-        <h2 class="logo">Image here</h2>
+        <img class = "logo" src="/res/puncher.png" alt="">
 
         <nav class="navigation">
             <a href="/">Home</a>
             @auth
-                <span>Welcome {{ auth()->user()->firstName }}</span>
 
+            <div class="formwrapper">
                 <form action="/logout" method="post">
                     @csrf
-                    <button type="submit">Log Out</button>
+                    <button class="btnLogout" type="submit">Log Out</button>
                 </form>
+            </div>
             @else
                 <button class="btnLogin">Login</button>
             @endauth
@@ -27,12 +30,20 @@
     </header>
     {{ $slot }}
 
-
     @if (session()->has('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
             <p>{{ session('success') }}</p>
         </div>
     @endif
+
+    @if (session()->has('status'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
+    <!-- <script src="{{ asset('/res/particles.js-master/particles.js') }}"></script> -->
+    <script src="{{ url('res/particles.js-master/particles.js') }}"></script>
+    <!-- <script src="/public/res/particles.js-master/particles.js"></script> -->
 
     <script type="text/JavaScript" src="/src/script.js"></script>
 
