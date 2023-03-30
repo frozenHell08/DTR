@@ -7,8 +7,8 @@
     box-sizing: border-box;
 }
 :root {
-    --bodybg : #0e1524;
-    --navtext : white;
+    --bodybg : #0b0c0d;
+    --navtext : #f1f0ec;
     --navlink : #ffffff;
     --formtext : #fff;
     --forminputtext : white;
