@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\DashboardControl;
+use App\Http\Controllers\Api\PasswordController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RegistrationControl;
 use App\Http\Controllers\Api\StateControl;
+use App\Http\Controllers\Api\VerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +31,9 @@ Route::group([
     Route::post('register', [RegistrationControl::class, 'register']);
     Route::post('register/validate', [RegistrationControl::class, 'validateEntry']);
     Route::post('login', [StateControl::class, 'login']);
+    Route::post('reset-password', [PasswordController::class, 'sendResetOTPEmail'])->name('password.reset');
+    Route::post('newpassword', [PasswordController::class, 'newPassword']);
+    Route::post('verify/otp', [VerificationController::class, 'verifyOTP']);
 });
 
 Route::group([
@@ -38,6 +44,8 @@ Route::group([
     Route::post('{user}/timein', [DashboardControl::class, 'timein']);
     Route::post('{user}/timeout', [DashboardControl::class, 'timeout']);
     Route::get('{user}', [DashboardControl::class, 'selftable']);
+    Route::post('{user}/upload/profpic', [ProfileController::class, 'profilePic']);
+    Route::put('{user}/edit/profile', [ProfileController::class, 'editProfile']);
 });
 
 Route::post('time', [DashboardControl::class, 'timeduration']);
