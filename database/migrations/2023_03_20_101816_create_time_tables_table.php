@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->timestamp('time_in');
             $table->timestamp('time_out')->nullable();
+            $table->string('duration')->nullable();
             $table->timestamps();
         });
 

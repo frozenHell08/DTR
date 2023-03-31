@@ -6,22 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TimeTable extends Model
+class Otp extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'date',
-        'time_out',
-        'duration'
+        'user_email',
+        'otp'
     ];
 
-    protected $guarded = [
-        'time_in',
-    ];
+    public $timestamps = true;
 
     public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_email', 'email');
     }
 }

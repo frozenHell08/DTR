@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\TimeTable;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
     public function register() {
+
         $forminput = request()->validate([
             'firstName' => ['required', 'max:255'],
             'lastName' => ['required', 'max:255'],
@@ -18,17 +20,24 @@ class RegisterController extends Controller
         ]);
 
         $user = User::create($forminput);
-      
+
+        if ($user->email === 'admin@admin.com') {
+            $user->is_admin = 1;
+            $user->save();
+        }
+
         auth()->login($user);
 
-
+        if ($user->is_admin) {
+            return redirect()->intended(route('admindash', [
+                // 'timetable' => TimeTable::all()
+            ]))->with('success', 'Welcome admin');
+        }
 
         return redirect()->intended(route('dashboard', [
             'user' => auth()->user()
         ]))->with('success', 'Account has been created.');
     }
-
-        // return redirect ('/')->with('success', 'Account has been created.');
 
     /**
      * Display the specified resource.

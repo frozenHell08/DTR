@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\TimeTable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -16,6 +18,12 @@ class SessionsController extends Controller
 
         if (auth()->attempt($forminput)) {
             session()->regenerate();
+
+            if (auth()->user()->is_admin) {
+                return redirect()->intended(route('admindash', [
+                    'timetable' => TimeTable::all()
+                ]))->with('success', 'Admin!');
+            }
 
             return redirect()->intended(route('dashboard', [
                 'user' => auth()->user()
