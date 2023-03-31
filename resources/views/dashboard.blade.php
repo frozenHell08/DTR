@@ -14,9 +14,9 @@
                 </div>
 
                 <div>
-                    <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post">
+                    <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post" id="timeout-form">
                         @csrf
-                        <button type="submit" class="btnTime btn-two">TIME OUT</button>
+                        <button type="submit" class="btnTime btn-two" id="btnOut" onclick="return confirmTimeout()">TIME OUT</button>
                     </form>
                 </div>
 
@@ -43,9 +43,6 @@
                     <tbody>
                         @foreach ($timetable as $timeentry)
                         <tr>
-                            @php
-                            $outentry = $timeentry->timeout;
-                            @endphp
                             <td> {{ \Carbon\Carbon::parse($timeentry->date)->format('F d, Y') }} </td>
                             <td> 
                                 {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
@@ -54,14 +51,14 @@
                             </td>
                             
                             <td> 
-                                @if ( is_null($timeouttoday) )
-                                    meow
-                                @else
+                                @php
+                                    $outentry = $timeentry->time_out;
+                                @endphp
+                                @if (! is_null($outentry) )
                                     {{ \Carbon\Carbon::parse($timeentry->time_out)->format('F d, Y') }}
                                     &nbsp;&nbsp;|&nbsp;&nbsp;
-                                    {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }} 
+                                    {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }}
                                 @endif
-                                
                             </td>
                             <td> {{ $timeentry->duration }} </td>
                         </tr>
