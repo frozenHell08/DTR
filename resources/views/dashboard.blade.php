@@ -6,13 +6,28 @@
             <span id="email">{{ auth()->user()->email }} </span>
         </div>
 
+        <div class="today">
+            <span>Today is {{ now()->format('F d, Y') }}</span>
+            <span>Time-in today : {{ $timeintoday }} </span>
+            <span>Time out today : {{ $timeouttoday }} </span>
+        </div>
+
         <div class="btns">
+            @if ($timeInRecordExists)
             <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post">
                 @csrf
                 <button type="submit" class="btnTime">
-                    Time out
+                    TIME OUT
                 </button>
             </form>
+            @else
+            <form action="{{ route('timein', ['user' => $user->id]) }}" method="post">
+                @csrf
+                <button type="submit" class="btnTime">
+                    TIME IN
+                </button>
+            </form>
+            @endif
 
             <form action="/logout" method="post" class="btnLogout">
                 @csrf

@@ -30,8 +30,10 @@ class DashboardController extends Controller
 
         $user = auth()->user();
         $timetable = auth()->user()->timeData;
+        
+        $timeInRecordExists = $timeintoday !== '--:--';
 
-        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday'));
+        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday', 'timeInRecordExists'));
     }
 
     public function timein() {

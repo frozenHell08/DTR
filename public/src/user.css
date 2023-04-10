@@ -96,6 +96,17 @@ main {
     font-size: .7em;
 }
 
+.profile .today {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.profile .today span {
+    font-size: .6em;
+    margin: 2% 0;
+}
+
 .profile .btns {
     width: 100%;
     height: 25%;
