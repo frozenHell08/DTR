@@ -7,8 +7,8 @@
     box-sizing: border-box;
 }
 :root {
-    --bodybg : #161E31;
-    --navtext : white;
+    --bodybg : #0b0c0d;
+    --navtext : #f1f0ec;
     --navlink : #ffffff;
     --formtext : #fff;
     --forminputtext : white;
@@ -26,7 +26,7 @@
 
     --dashh2 : #fff;
     --dashbtntime : #d7d9f9;
-    --dashhbg : #0e1524;
+    --dashhbg : #161E31;
 
     --tblbg : #dee1ff;
 }
@@ -42,6 +42,7 @@ body {
     background-position: center;
 }
 header {
+    background: var(--dashhbg);
     font-family: Visby;
     display: flex;
     position: fixed;
