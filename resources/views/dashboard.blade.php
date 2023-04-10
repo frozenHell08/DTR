@@ -1,71 +1,78 @@
-<x-layout>
-    <div class="dashboard">
-        <section class="dashheader">
-            @auth
-            <h2>Welcome, {{ auth()->user()->firstName }} {{ auth()->user()->lastName }}!</h2>
-            @endauth
+<x-dash>
+    <section class="profile">
+        <div class="details">
+            <img src="../res/smoke.jpg" alt="img" class="profpic">
+            <span id="name">{{ auth()->user()->firstName }} {{ auth()->user()->lastName }}</span>
+            <span id="email">{{ auth()->user()->email }} </span>
+        </div>
 
-            <div class="form-box timecard">
-                <div class="glow-border">
-                    <form action="{{ route('timein', ['user' => $user->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btnTime">TIME IN</button>
-                    </form>
-                </div>
+        <div class="today">
+            <span>Today is {{ now()->format('F d, Y') }}</span>
+            <span>Time-in today : {{ $timeintoday }} </span>
+            <span>Time out today : {{ $timeouttoday }} </span>
+        </div>
 
-                <div>
-                    <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post" id="timeout-form">
-                        @csrf
-                        <button type="submit" class="btnTime btn-two" id="btnOut" onclick="return confirmTimeout()">TIME OUT</button>
-                    </form>
-                </div>
+        <div class="btns">
+            @if ($timeInRecordExists)
+            <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post">
+                @csrf
+                <button type="submit" class="btnTime">
+                    TIME OUT
+                </button>
+            </form>
+            @else
+            <form action="{{ route('timein', ['user' => $user->id]) }}" method="post">
+                @csrf
+                <button type="submit" class="btnTime">
+                    TIME IN
+                </button>
+            </form>
+            @endif
 
-            </div>
+            <form action="/logout" method="post" class="btnLogout">
+                @csrf
+                <button type="submit">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </section>
 
-            <div class="display">
-                <span>Today is {{ now()->format('F d, Y') }}</span>
-                <span>Time-in : {{ $timeintoday }} </span>
-                <span>Time out : {{ $timeouttoday }} </span>
-            </div>
+    <main>
+        <span>Welcome {{ auth()->user()->firstName }}!</span>
 
-        </section>
+        <table class="timetable">
+            <thead>
+                <th>Date</th>
+                <th>Time in</th>
+                <th>Time out</th>
+                <th>Duration</th>
+            </thead>
 
-        <section class="dashdisplay">
-            <div class="timetable">
-                <table>
-                    <thead>
-                        <th>Date</th>
-                        <th>Time in</th>
-                        <th>Time out</th>
-                        <th>Duration</th>
-                    </thead>
-                    
-                    <tbody>
-                        @foreach ($timetable as $timeentry)
-                        <tr>
-                            <td> {{ \Carbon\Carbon::parse($timeentry->date)->format('F d, Y') }} </td>
-                            <td> 
-                                {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
-                                &nbsp;&nbsp;|&nbsp;&nbsp;
-                                {{ \Carbon\Carbon::parse($timeentry->time_in)->format('H:i.s') }} 
-                            </td>
-                            
-                            <td> 
-                                @php
-                                    $outentry = $timeentry->time_out;
-                                @endphp
-                                @if (! is_null($outentry) )
-                                    {{ \Carbon\Carbon::parse($timeentry->time_out)->format('F d, Y') }}
-                                    &nbsp;&nbsp;|&nbsp;&nbsp;
-                                    {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }}
-                                @endif
-                            </td>
-                            <td> {{ $timeentry->duration }} </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-</x-layout>
+            <tbody>
+                @foreach ($timetable as $timeentry)
+                <tr>
+                    <td> {{ \Carbon\Carbon::parse($timeentry->date)->format('F d, Y') }} </td>
+                    <td>
+                        {{ \Carbon\Carbon::parse($timeentry->time_in)->format('F d, Y') }}
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        {{ \Carbon\Carbon::parse($timeentry->time_in)->format('H:i.s') }}
+                    </td>
+
+                    <td>
+                        @php
+                        $outentry = $timeentry->time_out;
+                        @endphp
+                        @if (! is_null($outentry) )
+                        {{ \Carbon\Carbon::parse($timeentry->time_out)->format('F d, Y') }}
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        {{ \Carbon\Carbon::parse($timeentry->time_out)->format('H:i.s') }}
+                        @endif
+                    </td>
+                    <td> {{ $timeentry->duration }} </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </main>
+</x-dash>
