@@ -18,8 +18,6 @@ class DashboardController extends Controller
                                 ->whereDate('date', now()->toDateString())
                                 ->first();
 
-        // $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
-
         if (is_null($tablerecord)) {
             $timeintoday = '--:--';
             $timeouttoday = '--:--';
@@ -29,9 +27,13 @@ class DashboardController extends Controller
         }
 
         $user = auth()->user();
-        $timetable = auth()->user()->timeData;
+        $timetable = Timetable::where('user_id', auth()->user()->id)
+            ->latest()
+            ->paginate();
+        
+        $timeInRecordExists = $timeintoday !== '--:--';
 
-        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday'));
+        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday', 'timeInRecordExists'));
     }
 
     public function timein() {

@@ -27,18 +27,7 @@ Route::post('register', [RegisterController::class, 'register'])->middleware('gu
 Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-// Route::get('/dashboard/{user}', function(User $user) {
-//     // $date = session('date');
-
-//     return view ('dashboard', [
-//        'user' => $user,
-//     //    'date' => $date,
-//     //    'datenow' => session()->get('datenow'),
-//     //    'timein' => session()->get('timein'),
-//     ]);
-// })->name('dashboard')->middleware('auth');
-
-Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard')->middleware('auth');
+// Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard')->middleware(['auth', 'token.expired']);
 
 Route::group([
     'prefix' => 'dashboard',
@@ -48,4 +37,11 @@ Route::group([
     Route::post('{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout');
 });
 
-Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
+Route::group([
+    'middleware' => ['auth', 'token.expired'],
+], function() {
+    Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard')->middleware(['auth', 'token.expired']);
+    Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
+});
+
+// Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
