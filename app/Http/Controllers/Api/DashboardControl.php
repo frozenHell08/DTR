@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\TimeTable;
+use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -87,19 +89,96 @@ class DashboardControl extends Controller
     public function timeduration(Request $request) {
         $collection = collect();
 
-        foreach (TimeTable::all() as $entry) {
-            $start = Carbon::parse($entry->time_in);
-            $end = Carbon::parse($entry->time_out);
-    
-            $duration = $start->diff($end);
-    
-            $durationFormatted = $duration->format('%h hours %i minutes');
+        $user = User::find($request->user);
 
-            $collection->push([$entry->user_id, $entry->date, $start, $end, $durationFormatted]);
+        $from = Carbon::parse($request->from);
+        $to = Carbon::parse($request->to);
+        
+        if ($request->from == null) {
+            return 'null';
+        } else {
+            return 'value';
         }
 
-        return response()->json([
-            'col' => $collection
-        ]);
+        // return $request->from;
+        if ($from !== null && $to !== null) {
+            foreach ($user->timeDataByRange($from, $to)->get() as $entry) {
+
+                $collection->push(($entry->duration));
+            }
+
+            $hours = 0;
+            $minutes = 0;
+
+            foreach ($collection as $col) {
+                $duration = CarbonInterval::fromString($col);
+                $hours += $duration->hours;
+                $minutes += $duration->minutes;
+            }
+
+            $hours += floor($minutes / 60);
+            $minutes %= 60;
+
+            return response()->json([
+                'data' => $collection,
+                'total' => $hours . ' hours ' . $minutes . ' minutes '
+            ]);
+        } else {
+            return 'hello';
+        }
+        
+        if ($user == null) {
+            foreach (TimeTable::all() as $entry) {
+                $collection->push($this->timeformat($entry));
+            }
+
+            return response()->json([
+                'col' => $collection
+            ]);
+        } else {
+            foreach ($user->timedata as $data) {
+                $collection->push($this->timeformat($data));
+            }
+
+            // $hours = 0;
+            // $minutes = 0;
+
+            // foreach ($collection as $col) {
+            //     $duration = CarbonInterval::fromString($col);
+            //     $hours += $duration->hours;
+            //     $minutes += $duration->minutes;
+            // }
+
+            // $hours += floor($minutes / 60);
+            // $minutes %= 60;
+
+            return response()->json([
+                'user' => $user,
+                'data' => $collection,
+                // 'total' => $hours . ' hours ' . $minutes . ' minutes '
+            ]);
+        }
+
+        // return response()->json([
+        //     'col' => $collection
+        // ]);
+    }
+
+    protected function timeformat ($entry) {
+        $start = Carbon::parse($entry->time_in);
+        $end = Carbon::parse($entry->time_out);
+
+        $duration = $start->diff($end);
+
+        $durationFormatted = $duration->format('%h hours %i minutes');
+
+        return [$entry->user_id, $entry->date, $start, $end, $durationFormatted];
+    }
+
+    protected function hourcount ($entry) {
+        $start = Carbon::parse($entry->time_in);
+        $end = Carbon::parse($entry->time_out);
+
+        $duration = $start->diff($end);
     }
 }
