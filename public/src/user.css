@@ -145,8 +145,8 @@ main {
 
 .btns .btnLogout button {
     background: rgb(165 4 4);
-    color: var(--navtext);
-    /* border: none; */
+    color: var(--gentext);
+    border: 2px solid transparent;
 }
 
 .btns .btnLogout button:hover {
@@ -157,6 +157,11 @@ main {
 
 main span {
     margin: 1%;
+}
+
+main .tbl-container {
+    height: 80%;
+    margin-bottom: 3%;
 }
 
 table {

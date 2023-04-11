@@ -2,31 +2,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- <title>DTR</title> -->
+<title>DTR</title>
 
 <link rel="stylesheet" href="/src/user.css">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 
 <body>
-    <!-- <header>
-        <img class = "logo" src="/res/puncher.png" alt="">
-
-        <nav class="navigation">
-            <a href="/">Home</a>
-            @auth
-
-            <div class="formwrapper">
-                <form action="/logout" method="post">
-                    @csrf
-                    <button class="btnLogout" type="submit">Log Out</button>
-                </form>
-            </div>
-            @else
-                <button class="btnLogin">Login</button>
-            @endauth
-        </nav>
-    </header> -->
     {{ $slot }}
 
     @if (session()->has('success'))
