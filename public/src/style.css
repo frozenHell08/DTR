@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 * {
@@ -42,7 +41,6 @@ body {
     background-position: center;
 }
 header {
-    background: var(--dashhbg);
     font-family: Visby;
     display: flex;
     position: fixed;
@@ -456,7 +454,7 @@ input:-webkit-autofill:active {
 /* ---------------------------------------- NAVIGATION ELEMENTS ----------------------------------------  */
 
 .logo {
-    background-image: url(/public/res/puncher.png) ;
+    background-image: url(/res/puncher.png) ;
     height: 50px;
     font-size: 2em;
     color: aliceblue;

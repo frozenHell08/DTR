@@ -2,9 +2,21 @@
     --bodybg : #f1f0ec;
     --genbg : #0b0c0d;
     --gentext : #f1f0ec;
+    --gengray : #303030;
+    --darkhover : #0b0c0d;
+    --lhoverbg : #f1f0ec;
     --tbheader : #282828;
     --rowhover : #303030;
     --btmborder : #282828;
+
+    --iconbg : #303030;
+    --iconcolor : #f1f0ec;
+    --pencilbg : #0066ff;
+    --pencilcolor : #0b0c0d;
+    --sessionbg : #303030;
+
+    --genradius : 8px;
+    --circlerad : 50%;
 }
 
 * {
@@ -22,41 +34,52 @@ body {
     flex-direction: row;
     justify-content: space-between;
     font-size: 25px;
-    /* align-items: center; */
-    /* background: black; */
-    /* background: var(--bodybg); */
     background: var(--genbg);
 }
 
 body section, body main {
-    /* height: 85%; */
     padding: 0 20px;
     margin: 3% 2%;
-    /* background: var(--bodybg); */
     border: 2px solid var(--bodybg);
-    border-radius: 8px;
+    border-radius: var(--genradius);
 }
 
-section {
-    height: 50%;
-    width: 20%;
+aside {
+    width: 30%;
+    height: 60%;
+    
+    background: transparent;
+    border: 2px solid rgb(255, 255, 255, .5);
+    border-radius: var(--genradius);
+    box-shadow: 0 0 30px rgba(80, 80, 80, .5);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    /* background: var(--genbg); */
-    /* background: white; */
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    overflow: hidden;
+}
+
+section {
+    height: 60%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 main {
-    height: 85%;
+    height: 90%;
     width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* background: red; */
-
-    /* background: aliceblue; */
 }
 
 .session {
@@ -64,8 +87,162 @@ main {
     right: 15px;
     bottom: 15px;
     padding: 10px;
-    background-color: var(--navtext);
-    border-radius: 10px;
+    font-size: .7em;
+    background-color: var(--sessionbg);
+    border-radius: var(--genradius);
+}
+
+div.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+
+    transform: scale(0);
+    transition: transform .5s ease;
+}
+
+div.bg.active-popup {
+    transform: scale(1);
+}
+
+aside::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+    backdrop-filter: blur(20px);
+    z-index: -1;
+}
+
+.aside-edit .icon-close {
+    position: absolute;
+    right: 0;
+    background: var(--iconbg);
+    font-size: 1.5em;
+    color: var(--iconcolor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.img-container {
+    width: 50%;
+    height: 35%;
+    margin: 3% auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-container img {
+    position: relative;
+    max-width: 70%;
+    max-height: 100%;
+    margin: auto;
+}
+
+.img-container figcaption {
+    text-align: center;
+    font-size: .8em;
+}
+
+.aside-edit form {
+    height: 60%;
+    width: 75%;
+    font-size: .8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aside-edit form .img-box {
+    width: 70%;
+    height: 10.5%;
+    margin: 5% 0;
+}
+
+.aside-edit form .img-box input[type=file] {
+    display: none;
+}
+
+.aside-edit form .input-box {
+    width: 90%;
+    height: 15%;
+    border-bottom: 2px solid white;
+    margin: 4% 0;
+    position: relative;
+}
+
+.aside-edit form .img-box label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: var(--rowhover);
+    border-radius: var(--genradius);
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: .9em;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus ~ label,
+.input-box input:not(:placeholder-shown) ~ label {
+    top: -15%;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    font-size: .8em;
+    letter-spacing: 2px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0 5% 0 1%;
+}
+
+.input-box 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fff !important;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 0;
+    line-height: 3em;
+}
+
+.aside-edit form button {
+    width: 70%;
+    height: 10.5%;
+    background: var(--rowhover);
+    border-radius: var(--genradius);
+    font-size: 1em;
+    margin-top: 8%;
 }
 
 .profile .details {
@@ -74,46 +251,77 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    position: relative;
+}
+
+.details div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.details button {
+    width: 1.3em;
+    height: 1.3em;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: var(--pencilbg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: var(--genradius);
+    transition: .5s ease;
+    transform: translate(-50%, -20%);
+}
+
+.details button:hover {
+    border-radius: var(--circlerad);
+    background: var(--lhoverbg);
+    transition: .5s ease;
+}
+
+.details button i {
+    font-size: .8em;
+}
+
+.details button i:hover {
+    color: var(--darkhover);
 }
 
 .details img.profpic {
-    width: 150px;
-    height: 150px;
-    margin: 5% 0;
+    width: 6em;
+    height: 6em;
+    border: 2px solid white;
+    border-radius: var(--circlerad);
 }
 
 .details span {
     width: 100%;
     text-align: center;
+    font-size: .6em;
 }
 
-.details span#name {
+.details span:first-of-type {
     font-size: 1em;
 }
 
-.details span#email {
-    font-size: .7em;
-}
-
-.profile .today {
+.profile .today, .profile .btns {
+    width: 100%;
+    height: 25%;
     display: flex;
     flex-direction: column;
-    width: 70%;
+    justify-content: center;
 }
 
 .profile .today span {
     font-size: .6em;
     margin: 2% 0;
-}
-
-.profile .btns {
-    width: 100%;
-    height: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+    padding-left: 13%;
 }
 
 .profile .btns form {
@@ -122,6 +330,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 2.5% 0;
 }
 
 .btns form button {
@@ -129,7 +338,7 @@ main {
     height: 100%;
     background: transparent;
     outline: none;
-    border-radius: 6px;
+    border-radius: var(--genradius);
     cursor: pointer;
     font-size: .8em;
     transition: .5s;
@@ -150,7 +359,6 @@ main {
 }
 
 .btns .btnLogout button:hover {
-    /* color: var(--bodybg); */
     background: var(--genbg);
     border: 2px solid var(--gentext);
 }

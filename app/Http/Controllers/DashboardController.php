@@ -7,6 +7,7 @@ use App\Models\TimeTable;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
@@ -32,8 +33,10 @@ class DashboardController extends Controller
             ->paginate();
         
         $timeInRecordExists = $timeintoday !== '--:--';
+        $imageExists = (File::exists(public_path(str_replace('public', 'storage', $user->profile_picture)))) ? true : false;
+        $accHours = Controller::accumulatedHours($user);
 
-        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday', 'timeInRecordExists'));
+        return view('dashboard', compact('user', 'imageExists' ,'timetable', 'timeintoday', 'timeouttoday', 'timeInRecordExists', 'accHours'));
     }
 
     public function timein() {
