@@ -5,8 +5,10 @@
 <title>DTR</title>
 
 <link rel="stylesheet" href="/src/user.css">
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="/src/media.css">
+<link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
 
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 
 <body>
@@ -24,13 +26,8 @@
         </div>
     @endif
 
-    <!-- <script type="text/JavaScript" src="/src/script.js"></script> -->
+    <script type="text/JavaScript" src="/src/user.js"></script>
 
-    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> -->
-    <!-- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-
-<!-- <footer>
-    <p class="footer">Joshua Anne P. Baldos</p>
-    <p id="credit" class="footer">Photo credits : Joshua Anne P. Baldos | Mount Kosciuszko, Australia</p>
-</footer> -->

@@ -470,6 +470,9 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.absolute {
+  position: absolute;
+}
 .relative {
   position: relative;
 }
@@ -483,6 +486,10 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+.my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .-ml-px {
   margin-left: -1px;
@@ -547,12 +554,6 @@ video {
 .w-16 {
   width: 4rem;
 }
-.w-2\/5 {
-  width: 40%;
-}
-.w-3\/6 {
-  width: 50%;
-}
 .w-5 {
   width: 1.25rem;
 }
@@ -564,6 +565,9 @@ video {
 }
 .w-auto {
   width: auto;
+}
+.min-w-\[20\%\] {
+  min-width: 20%;
 }
 .max-w-7xl {
   max-width: 80rem;
@@ -605,6 +609,9 @@ video {
 }
 .self-center {
   align-self: center;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 .rounded-full {
   border-radius: 9999px;

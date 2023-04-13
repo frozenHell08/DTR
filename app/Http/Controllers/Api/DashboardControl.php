@@ -100,7 +100,6 @@ class DashboardControl extends Controller
             return 'value';
         }
 
-        // return $request->from;
         if ($from !== null && $to !== null) {
             foreach ($user->timeDataByRange($from, $to)->get() as $entry) {
 
@@ -140,28 +139,11 @@ class DashboardControl extends Controller
                 $collection->push($this->timeformat($data));
             }
 
-            // $hours = 0;
-            // $minutes = 0;
-
-            // foreach ($collection as $col) {
-            //     $duration = CarbonInterval::fromString($col);
-            //     $hours += $duration->hours;
-            //     $minutes += $duration->minutes;
-            // }
-
-            // $hours += floor($minutes / 60);
-            // $minutes %= 60;
-
             return response()->json([
                 'user' => $user,
                 'data' => $collection,
-                // 'total' => $hours . ' hours ' . $minutes . ' minutes '
             ]);
         }
-
-        // return response()->json([
-        //     'col' => $collection
-        // ]);
     }
 
     protected function timeformat ($entry) {
@@ -173,12 +155,5 @@ class DashboardControl extends Controller
         $durationFormatted = $duration->format('%h hours %i minutes');
 
         return [$entry->user_id, $entry->date, $start, $end, $durationFormatted];
-    }
-
-    protected function hourcount ($entry) {
-        $start = Carbon::parse($entry->time_in);
-        $end = Carbon::parse($entry->time_out);
-
-        $duration = $start->diff($end);
     }
 }
