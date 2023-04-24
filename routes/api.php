@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PasswordController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RegistrationControl;
 use App\Http\Controllers\Api\StateControl;
+use App\Http\Controllers\Api\TimeControl;
 use App\Http\Controllers\Api\VerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -48,4 +49,5 @@ Route::group([
     Route::put('{user}/edit/profile', [ProfileController::class, 'editProfile']);
 });
 
-Route::post('time', [DashboardControl::class, 'timeduration']);
+Route::post('time', [TimeControl::class, 'timeduration']);
+Route::post('updatedur', [TimeControl::class, 'updateDuration']);
