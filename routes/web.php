@@ -43,3 +43,5 @@ Route::group([
     Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard');
     Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
 });
+
+Route::get('/dashboard/{user}/table', [DashboardController::class, 'getTableData']);

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+
 @media screen and (max-width: 1540px) {
     body {
         font-size: 20px;
@@ -6,5 +8,56 @@
     .details img.profpic {
         width: 5em;
         height: 5em;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+        height: auto;
+    }
+
+    #scroll-style {
+        width: 100%;
+        /* height: 800px; */
+        height: auto;
+        font-size: 12px;
+        background-color: white;
+    }
+
+    .print-area * {
+        visibility: visible;
+        height: auto;
+        color: #0b0c0d;
+        margin: 0;
+        padding: 0;
+        /* font-family: 'Crimson Text', serif ; */
+    }
+
+    .print-area .company-logo svg path {
+        fill: #0b0c0d;
+    }
+
+    .print-area article, .print-area .tbl-container {
+        width: 75%;
+    }
+
+    .print-area .tbl-container {
+        height: 80%;
+    }
+
+    .print-area .tbl-container table {
+        page-break-inside: avoid;
+    }
+
+    table tbody tr {
+        border-bottom: none;
+        line-height: 2;
+    }
+
+    .print-area article:last-child {
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 10%;
     }
 }

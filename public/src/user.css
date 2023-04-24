@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 :root {
     --bodybg : #f1f0ec;
     --genbg : #0b0c0d;
@@ -6,7 +8,7 @@
     --darkhover : #0b0c0d;
     --lhoverbg : #f1f0ec;
     --tbheader : #282828;
-    --rowhover : #303030;
+    --rowhover : #404040;
     --btmborder : #282828;
 
     --iconbg : #303030;
@@ -23,7 +25,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Visby;
+    font-family: 'Roboto', sans-serif;
     color: var(--gentext);
 }
 
@@ -99,12 +101,25 @@ div.bg {
     position: absolute;
     z-index: 1;
 
-    transform: scale(0);
-    transition: transform .5s ease;
+    scale: 0;
+    transition: scale .5s ease, opacity .5s;
 }
 
-div.bg.active-popup {
-    transform: scale(1);
+.bg-print {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+
+    scale: 0;
+    opacity: 0;
+    transition: scale .5s ease, opacity .5s;
+}
+
+div.bg.active-popup, div.bg-print.active-popup {
+    scale: 1;
+    opacity: 1;
 }
 
 aside::before {
@@ -406,7 +421,6 @@ tbody tr {
 tbody tr:hover {
     background: var(--rowhover);
     cursor: pointer;
-    font-weight: 600;
 }
 
 th {
@@ -423,6 +437,183 @@ th:first-of-type, td:first-of-type {
     font-size: 18px;
     line-height: 1.2;
     font-weight: unset;
+}
+
+.printbtn  {
+    position: absolute;
+    bottom: 0;
+}
+
+.printbtn * {
+    color: var(--iconbg);
+}
+
+.bg-print .btnlist {
+    background: var(--gengray);
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    right: 0;
+    transform: translate(-7vw, 20%);
+    padding: 0.5%;
+    border-radius: var(--genradius);
+    align-items: center;
+}
+
+.bg-print .btnlist .list-item {
+    display: flex;
+    align-items: center;
+}
+
+.bg-print .btnlist * {
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+}
+
+.bg-print .btnlist input[type=date] {
+    position: absolute;
+    right: 0;
+    border-radius: var(--genradius);
+    font-size: .7em;
+    padding-right: 25%;
+    line-height: 1.5em;
+    color-scheme: dark;
+    translate: -30% 12%;
+    opacity: 0;
+
+    transition: opacity .5s ease;
+}
+
+.bg-print .btnlist input[type=date].active {
+    opacity: 1;
+} 
+
+.bg-print ul li .tooltip {
+    width: 5em;
+
+    background: var(--gengray);
+    border-radius: var(--genradius);
+    text-align: center;
+    pointer-events: none;
+    translate: 15% 50%;
+    position: absolute;
+    right: 0;
+    font-size: 0.7em;
+    opacity: 0;
+}
+
+.bg-print ul li:hover .tooltip {
+    translate: 100%;
+    transition: .5s ease;
+    opacity: 1;
+}
+
+.bg-print .print-area {
+    width: 80%;
+    height: 90%;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
+    margin: 1% auto;
+    background: var(--gengray);
+    overflow-y: auto;
+    overflow-y: scroll;
+}
+
+.print-area .company-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5% 0;
+}
+
+.print-area .company-logo svg:first-child {
+    width: 2em;
+}
+
+.print-area .company-logo svg {
+    width: 9em;
+    margin: 2% 0;
+}
+
+.print-area .company-logo span {
+    font-size: .5em;
+}
+
+.print-area article {
+    width: 55%;
+    align-self: center;
+    margin: 3% 0;
+    font-size: .65em;
+    display: flex;
+    flex-direction: column;
+}
+
+.print-area article * {
+    margin: .5% 0;
+    width: 50%;
+}
+
+.print-area .tbl-container {
+    width: 55%;
+    margin: 1% 0;
+}
+
+.print-area thead tr {
+    background: transparent;
+}
+
+.print-area th {
+    font-size: .7em;
+}
+
+.print-area #totalhours {
+    height: 4.5vh;
+    width: 50%;
+    font-size: 0.6em;
+    padding: 2%;
+    margin: 5% 0;
+    display: inherit;
+}
+
+.print-area article:last-child {
+    flex-direction: row;
+}
+
+.print-area article:last-child span {
+    width: 100%;
+    padding-top: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.print-area article:last-child strong {
+    width: 65%;
+    border-top: 1.5px solid;
+    padding: 1%;
+    margin: 5% 0;
+    text-align: center;
+    display: grid;
+}
+
+#scroll-style::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+#scroll-style::-webkit-scrollbar {
+	width: 12px;
+	background-color: transparent;
+}
+
+#scroll-style::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: var(--darkhover);
 }
 
 @font-face {
