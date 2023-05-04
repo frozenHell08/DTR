@@ -1,3 +1,11 @@
+function confirmTimeout() {
+    if (confirm("really?")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // ---------------------------------------- UPLOAD PREVIEW ----------------------------------------
 
 let uploadButton = document.getElementById("upload-img");
@@ -48,17 +56,6 @@ const startPrint = document.getElementById("btnPrint");
 startPrint.addEventListener('click', function() {
     print();
 });
-
-function printContent() {
-    printJS({
-        printable: 'scroll-style',
-        type: 'html',
-        css: '/src/user.css',
-        onComplete: function() {
-            console.log('complete');
-        }
-    });
-}
 
 // ---------------------------------------- DATE INPUT ----------------------------------------
 
@@ -128,11 +125,11 @@ function retrieveRecords(d1, d2, table) {
     const nowmonth = now.toLocaleString('default', { month: 'long' });
 
     if (d2 === "") {
-        daterange.innerHTML = `Time Record from ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
-        to ${nowmonth} ${now.getDate()}, ${now.getFullYear()}`;    
+        daterange.innerHTML = `<em>Time Record from : ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
+        to ${nowmonth} ${now.getDate()}, ${now.getFullYear()}</em>`;    
     } else {
-        daterange.innerHTML = `Time Record from ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
-        to ${endmonth} ${end.getDate()}, ${end.getFullYear()}`;
+        daterange.innerHTML = `<em>Time Record from : ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
+        to ${endmonth} ${end.getDate()}, ${end.getFullYear()}</em>`;
     }
 
     fetch(`/dashboard/${userID}/table?from=${d1}&to=${d2}`)

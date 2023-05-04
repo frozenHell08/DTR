@@ -63,6 +63,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'token.expired' => \App\Http\Middleware\RedirectIfTokenExpired::class
+        'token.expired' => \App\Http\Middleware\RedirectIfTokenExpired::class,
+        'token.active' => \App\Http\Middleware\RedirectToDashboard::class,
+        'isadmin' => \App\Http\Middleware\CheckAdmin::class
     ];
 }

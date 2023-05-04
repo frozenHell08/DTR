@@ -82,6 +82,7 @@ class DashboardControl extends Controller
         $user = auth()->user();
 
         return response()->json([
+            'user' => $user,
             'time data' => $user->timedata->sortDesc()->values()->all()
         ]);
     }

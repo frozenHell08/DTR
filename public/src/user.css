@@ -523,24 +523,28 @@ th:first-of-type, td:first-of-type {
     overflow-y: scroll;
 }
 
-.print-area .company-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1.5% 0;
+.print-area article:first-of-type {
+    display: grid;
+    grid-auto-rows: 20%;
+    grid-template-columns: 15% auto;
 }
 
-.print-area .company-logo svg:first-child {
-    width: 2em;
+.print-area article:first-of-type svg {
+    height: 6em;
+    width: 6em;
+    grid-row: span 5;
 }
 
-.print-area .company-logo svg {
-    width: 9em;
-    margin: 2% 0;
+.print-area article:first-of-type span:first-of-type {
+    font-size: 2em;
+    grid-row: span 2;
 }
 
-.print-area .company-logo span {
-    font-size: .5em;
+.print-area article:first-of-type hr {
+    width: 100%;
+    align-self: end;
+    border-top: 1.5px solid;
+    border-radius: 4px;
 }
 
 .print-area article {
@@ -548,13 +552,11 @@ th:first-of-type, td:first-of-type {
     align-self: center;
     margin: 3% 0;
     font-size: .65em;
-    display: flex;
-    flex-direction: column;
+    display: grid;
 }
 
 .print-area article * {
     margin: .5% 0;
-    width: 50%;
 }
 
 .print-area .tbl-container {
@@ -579,24 +581,32 @@ th:first-of-type, td:first-of-type {
     display: inherit;
 }
 
-.print-area article:last-child {
-    flex-direction: row;
+.print-area article:last-of-type {
+    grid-template-columns: 50% 50%;
+    grid-auto-rows: 70%;
+    row-gap: 100%;
+    align-items: end;
 }
 
-.print-area article:last-child span {
+.print-area article:last-of-type span {
     width: 100%;
-    padding-top: 15%;
     display: flex;
     justify-content: center;
 }
 
-.print-area article:last-child strong {
+.print-area article:last-of-type strong {
     width: 65%;
     border-top: 1.5px solid;
-    padding: 1%;
-    margin: 5% 0;
     text-align: center;
-    display: grid;
+    display: block;
+}
+
+.print-area footer {
+    margin: 5% 0;
+}
+
+.print-area footer svg {
+    width: 8em;
 }
 
 #scroll-style::-webkit-scrollbar-track {

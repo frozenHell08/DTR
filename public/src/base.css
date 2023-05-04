@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    /* --bodybg : #f1f0ec; */
+    /* --genbg : #0b0c0d; */
+    --gentext : #f1f0ec;
+    /* --gengray : #303030; */
+    /* --darkhover : #0b0c0d; */
+    /* --lhoverbg : #f1f0ec; */
+    /* --tbheader : #282828; */
+    /* --rowhover : #404040; */
+    /* --btmborder : #282828; */
+
+    /* --iconbg : #303030; */
+    /* --iconcolor : #f1f0ec; */
+    /* --pencilbg : #0066ff; */
+    /* --pencilcolor : #0b0c0d; */
+    --sessionbg : #303030;
+
+    --genradius : 8px;
+    /* --circlerad : 50%; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    color: var(--gentext);
+}
+
+.session {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    padding: 10px;
+    font-size: .7em;
+    background-color: var(--sessionbg);
+    border-radius: var(--genradius);
+}
