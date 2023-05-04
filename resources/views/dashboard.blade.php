@@ -9,7 +9,7 @@
                 <figcaption id="file-name"></figcaption>
             </figure>
             <form action="{{ route('edit', ['user' => $user->id]) }}" method="post" enctype="multipart/form-data">
-            <!-- <form action="{{ secure_url('dashboard/' . $user->id . '/edit') }}" method="post" enctype="multipart/form-data"> -->
+                <!-- <form action="{{ secure_url('dashboard/' . $user->id . '/edit') }}" method="post" enctype="multipart/form-data"> -->
                 @csrf
                 <div class="img-box">
                     <input type="file" name="profpic" id="upload-img" accept="image/*">
@@ -73,7 +73,7 @@
             <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post">
                 <!-- <form action="{{ route('timeout', ['user' => $user->id]) }}" method="post"> -->
                 @csrf
-                <button type="submit" class="btnTime">
+                <button type="submit" class="btnTime" onclick="confirmTimeout()">
                     TIME OUT
                 </button>
             </form>
@@ -167,21 +167,15 @@
         </ul>
 
         <section class="print-area" id="scroll-style" data-user-id="{{ auth()->user()->id }}">
-            <div class="company-logo">
-                <x-svg.cv type="logo" />
-                <x-svg.cv type="name" />
-                <span>Las Piñas, Metro Manila, Philippines</span>
-                <span>hello@code-vertical.com</span>
-                <span>(+63) 977 259 4667</span>
-            </div>
-
             <article>
-                <span><strong>Name :</strong> {{ auth()->user()->firstName }} {{ auth()->user()->lastName }}</span>
-                <span id="daterange"><strong>Date :</strong> {{ \Carbon\Carbon::parse($rawTable[0]->date)->format('F d, Y') }} 
-                    to {{ \Carbon\Carbon::parse(now())->format('F d, Y') }} </span>
+                <x-svg.cv type="logo" />
+                <span>Time Sheet</span>
+                <span><em>Employee Name : {{ auth()->user()->firstName }} {{ auth()->user()->lastName }}</em></span>
+                <span id="daterange"><em>Time Record from : {{ \Carbon\Carbon::parse($rawTable[0]->date)->format('F d, Y') }}
+                        to {{ \Carbon\Carbon::parse(now())->format('F d, Y') }} </em></span>
+                <hr>
             </article>
 
-            <span>Time Record</span>
             <div class="tbl-container">
                 <table class="timetable" id="timetable">
                     <thead>
@@ -215,20 +209,14 @@
                 <span id="totalhours"><strong> Total hours :</strong> {{ $accHours }} </span>
             </div>
             <article>
-                <div class="signature">
-                    <span><strong>Supervisor Signature over Printed Name</strong></span>
-                    <span><strong>Date</strong></span>
-                </div>
-                <div class="signature">
-                    <span><strong>Approved By</strong></span>
-                    <span><strong>Date</strong></span>
-                </div>
+                <span><strong>Supervisor Signature over Printed Name</strong></span>
+                <span><strong>Approved By</strong></span>
+                <span><strong>Date</strong></span>
+                <span><strong>Date</strong></span>
             </article>
+            <footer>
+                <x-svg.cv type="name" />
+            </footer>
         </section>
     </div>
-    <!-- This is an example component -->
-<div class="max-w-2xl mx-auto absolute">
-
-
-</div>
 </x-dash>

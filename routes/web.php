@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing');
-})->name('login');
+})
+->middleware('token.active')
+->name('login');
 
 Route::post('register', [RegisterController::class, 'register'])->middleware('guest');
 
@@ -45,3 +47,10 @@ Route::group([
 });
 
 Route::get('/dashboard/{user}/table', [DashboardController::class, 'getTableData']);
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'isadmin'
+], function () {
+    Route::get('{user}', [AdminDashboard::class, 'getUserDetails']);
+});

@@ -4,6 +4,8 @@
 
 <title>{{ config('app.name') }}</title>
 
+<link rel="stylesheet" href="/src/base.css">
+
 {{ $slot }}
 
 @secure
