@@ -3,18 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Mail\PasswordResetEmail;
-use App\Models\Otp;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -31,16 +26,19 @@ class ProfileController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     
+        if (! is_null($user->profile_picture)) {
+            Storage::delete($user->profile_picture);
+        }
+
         $file = $request->file('image');
 
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $filename = $user->lastName . uniqid() . '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('public/images/profile', $filename);
 
         $user->update(['profile_picture' => $path]);
 
         return response()->json([
-            'message' => 'see what link gets you the image',
-            'url' => asset('storage/images/profile/' . $filename),
+            'message' => 'Image changed.',
             'path' => $path,
         ]);
     }
@@ -57,8 +55,6 @@ class ProfileController extends Controller
                 'errors' => $validation->errors(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
-        $message = '';
 
         if (! is_null($request->firstName)) {
             $user->firstName = $request->firstName;
@@ -71,12 +67,8 @@ class ProfileController extends Controller
         if (! is_null($request->mobileno)) {
             $user->mobileno = $request->mobileno;
         }
-        // $user->firstName = $request->firstName;
-        // $user->lastName = $request->lastName;
-        // $user->mobileno = $request->mobileno;
 
         if ($user->isDirty()) {
-            // $message = '?';
             $user->save();
         }
 

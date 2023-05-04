@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\TimeTable;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
@@ -18,8 +20,6 @@ class DashboardController extends Controller
                                 ->whereDate('date', now()->toDateString())
                                 ->first();
 
-        // $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
-
         if (is_null($tablerecord)) {
             $timeintoday = '--:--';
             $timeouttoday = '--:--';
@@ -29,9 +29,16 @@ class DashboardController extends Controller
         }
 
         $user = auth()->user();
-        $timetable = auth()->user()->timeData;
+        $rawTable = auth()->user()->timedata;
+        $timetable = Timetable::where('user_id', auth()->user()->id)
+            ->latest()
+            ->paginate();
+        
+        $timeInRecordExists = $timeintoday !== '--:--';
+        $imageExists = (File::exists(public_path(str_replace('public', 'storage', $user->profile_picture)))) ? true : false;
+        $accHours = Controller::accumulatedHours($user);
 
-        return view('dashboard', compact('user', 'timetable', 'timeintoday', 'timeouttoday'));
+        return view('dashboard', compact('user', 'imageExists' ,'timetable', 'rawTable', 'timeintoday', 'timeouttoday', 'timeInRecordExists', 'accHours'));
     }
 
     public function timein() {
@@ -85,5 +92,73 @@ class DashboardController extends Controller
         $userTime->update(['duration' => $durationFormatted]);
 
         return redirect()->back()->with('status', 'Time out success!');
+    }
+
+    public function getTableData(Request $request) {
+        $collection = collect();
+
+        $user = User::find($request->user);
+
+        $from = Carbon::parse($request->from);
+        $to = Carbon::parse($request->to);
+
+        if ($request->from == null) {
+            foreach ($user->timeData as $entry) {
+                $collection->push(($entry));
+            }
+
+            $total = $this->totalTime($collection);
+
+            return response()->json([
+                'totaltime' => $total,
+                'data' => $user->timedata
+            ]);
+
+        }
+
+        if ($request->from !== null && $request->to == null) {
+            foreach ($user->timeDataByRange($from, now())->get() as $entry) {
+                $collection->push(($entry));
+
+            }
+
+            $total = $this->totalTime($collection);
+
+            return response()->json([
+                'request' => $request->all(),
+                'totaltime' => $total,
+                'data' => $collection
+            ]);
+        }
+
+        if ($request->from !== null && $request->to !== null) {
+            foreach ($user->timeDataByRange($from, $to)->get() as $entry) {
+                $collection->push(($entry));
+            }
+
+            $total = $this->totalTime($collection);
+
+            return response()->json([
+                'request' => $request->all(),
+                'totaltime' => $total,
+                'data' => $collection
+            ]);
+        }
+    }
+
+    protected function totalTime($collection) {
+        $hours = 0;
+        $minutes = 0;
+
+        foreach ($collection as $col) {
+            $duration = CarbonInterval::fromString($col->duration);
+            $hours += $duration->hours;
+            $minutes += $duration->minutes;
+        }
+
+        $hours += floor($minutes / 60);
+        $minutes %= 60;
+
+        return $hours . ' hours ' . $minutes . ' minutes ';
     }
 }

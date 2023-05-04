@@ -61,6 +61,20 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(TimeTable::class);
     }
 
+    public function timeDataByRange($from = null, $to = null): HasMany {
+        $query = $this->hasMany(TimeTable::class);
+
+        if ($from) {
+            $query->where('date', '>=', $from);
+        }
+    
+        if ($to) {
+            $query->where('date', '<=', $to);
+        }
+    
+        return $query;
+    }
+
     public function otp(): HasOne {
         return $this->hasOne(Otp::class, 'user_email', 'email');
     }

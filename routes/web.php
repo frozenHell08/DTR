@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboard;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EditProfile;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Models\User;
@@ -20,25 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing');
-})->name('login');
+})
+->middleware('token.active')
+->name('login');
 
 Route::post('register', [RegisterController::class, 'register'])->middleware('guest');
 
 Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
-
-// Route::get('/dashboard/{user}', function(User $user) {
-//     // $date = session('date');
-
-//     return view ('dashboard', [
-//        'user' => $user,
-//     //    'date' => $date,
-//     //    'datenow' => session()->get('datenow'),
-//     //    'timein' => session()->get('timein'),
-//     ]);
-// })->name('dashboard')->middleware('auth');
-
-Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard')->middleware('auth');
 
 Route::group([
     'prefix' => 'dashboard',
@@ -46,6 +36,21 @@ Route::group([
 ], function () {
     Route::post('{user}/timein', [DashboardController::class, 'timein'])->name('timein');
     Route::post('{user}/timeout', [DashboardController::class, 'timeout'])->name('timeout');
+    Route::post('{user}/edit', [EditProfile::class, 'editProfile'])->name('edit');
 });
 
-Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
+Route::group([
+    'middleware' => ['auth', 'token.expired'],
+], function() {
+    Route::get('/dashboard/{user}', [DashboardController::class, 'display'])->name('dashboard');
+    Route::get('admin/dash', [AdminDashboard::class, 'showDash'])->name('admindash');
+});
+
+Route::get('/dashboard/{user}/table', [DashboardController::class, 'getTableData']);
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'isadmin'
+], function () {
+    Route::get('{user}', [AdminDashboard::class, 'getUserDetails']);
+});

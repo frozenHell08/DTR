@@ -1,38 +1,71 @@
-/* @media screen and (max-width: 982px) {
-    .dashboard {
-        width: 100%;
-        top: -15vh;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-    .dashheader, .dashdisplay {
-        padding: 10px 0;
-    }
-    .dashboard h2 {
-        font-size: 1em;
-    }
-    .dashheader .btnTime {
-        font-size: .8em;
-    }
-    .display span {
-        font-size: 1em;
-    }
-} */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
 
 @media screen and (max-width: 1540px) {
-    .dashboard {
-        top: -120px;
+    body {
+        font-size: 20px;
     }
-    .dashheader, .dashdisplay {
-        padding: 10px 0;
+
+    .details img.profpic {
+        width: 5em;
+        height: 5em;
     }
-    .dashboard h2 {
-        font-size: 1em;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+        height: auto;
     }
-    .dashheader .btnTime {
-        font-size: .8em;
+
+    #scroll-style {
+        width: 100%;
+        height: auto;
+        font-size: 20px;
+        background-color: white;
     }
-    .display span {
-        font-size: 1em;
+
+    .print-area * {
+        visibility: visible;
+        height: auto;
+        color: #0b0c0d;
+        margin: 0;
+        padding: 0;
+    }
+
+    .print-area svg path {
+        fill: #0b0c0d;
+    }
+
+    .print-area hr {
+        color: #0b0c0d;
+    }
+
+    .print-area article, .print-area .tbl-container {
+        width: 80%;
+    }
+
+    .print-area .tbl-container {
+        height: 80%;
+        min-height: 80%;
+    }
+
+    .print-area .tbl-container table {
+        page-break-inside: auto;
+    }
+
+    table tbody tr {
+        border-bottom: none;
+        line-height: 2;
+    }
+
+    .print-area article:last-of-type {
+        position: absolute;
+        bottom: 15%;
+        width: 90%;
+    }
+
+    .print-area footer {
+        position: absolute;
+        bottom: 0;
     }
 }

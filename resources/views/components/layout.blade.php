@@ -5,7 +5,6 @@
 <title>DTR</title>
 
 <link rel="stylesheet" href="/src/style.css">
-<link rel="stylesheet" href="/src/media.css">
 <link rel="stylesheet" href="/src/animations.css">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
 
@@ -28,6 +27,7 @@
             @endauth
         </nav>
     </header>
+
     {{ $slot }}
 
     @if (session()->has('success'))
@@ -41,17 +41,16 @@
             <p>{{ session('status') }}</p>
         </div>
     @endif
-    <!-- <script src="{{ asset('/res/particles.js-master/particles.js') }}"></script> -->
-    <script src="{{ url('res/particles.js-master/particles.js') }}"></script>
-    <!-- <script src="/public/res/particles.js-master/particles.js"></script> -->
 
+    @secure
+    <script src="{{ secure_asset('res/particles.js-master/particles.js') }}"></script>
+    @else
+    <script src="{{ asset('res/particles.js-master/particles.js') }}"></script>
+    @endsecure
+    
     <script type="text/JavaScript" src="/src/script.js"></script>
+    <!-- <script type="text/JavaScript" src="/src/access.js"></script> -->
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-
-<!-- <footer>
-    <p class="footer">Joshua Anne P. Baldos</p>
-    <p id="credit" class="footer">Photo credits : Joshua Anne P. Baldos | Mount Kosciuszko, Australia</p>
-</footer> -->
