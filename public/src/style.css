@@ -39,6 +39,7 @@ body {
     background-color: var(--bodybg);
     background-size: cover;
     background-position: center;
+    overflow: hidden;
 }
 header {
     font-family: Visby;
