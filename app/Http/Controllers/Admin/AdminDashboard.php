@@ -15,18 +15,6 @@ class AdminDashboard extends Controller
         $users = User::whereNotIn('lastName', ['qwe', 'admin'])
                 ->orderBy('lastName')->get();
 
-        // $imageExists = (File::exists(public_path(str_replace('public', 'storage', $user->profile_picture)))) ? true : false;
-        // $token = JWTAuth::getToken();
-        // $sessionid = session()->getId();
-
-
-        // $another = auth()->guard('api')->user();
-        // $another = auth()->user();
-        // $another = JWTAuth::fromUser($admin);
-
-        
-        // $token = JWTAuth::encode($payload);
-
         return view ('admin.admindash', compact('users'));
     }
 
@@ -41,7 +29,7 @@ class AdminDashboard extends Controller
 
         $latest = $user->timedata()->latest()->get();
 
-        $tablerecord = TimeTable::where('user_id', auth()->user()->id)
+        $tablerecord = TimeTable::where('user_id', $user->id)
                                 ->whereDate('date', now()->toDateString())
                                 ->first();
 
@@ -64,30 +52,5 @@ class AdminDashboard extends Controller
             ],
             'latest' => $latest
         ]);
-    }
-
-    public function display() {
-        // $tablerecord = TimeTable::where('user_id', auth()->user()->id)
-        //                         ->whereDate('date', now()->toDateString())
-        //                         ->first();
-
-        // if (is_null($tablerecord)) {
-        //     $timeintoday = '--:--';
-        //     $timeouttoday = '--:--';
-        // } else {
-        //     $timeouttoday = (is_null($tablerecord->time_out)) ? '--:--' : Carbon::parse($tablerecord->time_out)->format('H:i.s');
-        //     $timeintoday = (is_null($tablerecord)) ? '--:--' : Carbon::parse($tablerecord->time_in)->format('H:i.s');
-        // }
-
-        // $user = auth()->user();
-        // $timetable = Timetable::where('user_id', auth()->user()->id)
-        //     ->latest()
-        //     ->paginate();
-        
-        // $timeInRecordExists = $timeintoday !== '--:--';
-        // $imageExists = (File::exists(public_path(str_replace('public', 'storage', $user->profile_picture)))) ? true : false;
-        // $accHours = Controller::accumulatedHours($user);
-
-        // return view('dashboard', compact('user', 'imageExists' ,'timetable', 'timeintoday', 'timeouttoday', 'timeInRecordExists', 'accHours'));
     }
 }

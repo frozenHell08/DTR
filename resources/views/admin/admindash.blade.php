@@ -154,8 +154,6 @@
                     </div>
                 </div>
             </div>
-
-
         </main>
     </section>
     <div class="bg-print">
@@ -172,23 +170,13 @@
                 </button>
                 <span class="tooltip">Print</span>
             </li>
-            <li class="list-icon">
-                <input type="date" name="from" id="from" class="date-input">
-                <label for="from"><i class='bx bx-calendar'></i></label>
-                <span class="tooltip">From</span>
-            </li>
-            <li class="list-icon">
-                <input type="date" name="to" id="to" class="date-input">
-                <label for="to"><i class='bx bx-calendar'></i></label>
-                <span class="tooltip">To</span>
-            </li>
         </ul>
 
         <div class="print-area" id="scroll-style">
             <article>
                 <x-svg.cv type="logo" />
                 <span>Time Sheet</span>
-                <span><em>Employee Name : {{ auth()->user()->firstName }} {{ auth()->user()->lastName }}</em></span>
+                <span id="employname"><em></em></span>
                 <span id="daterange"><em>Time Record from : </em></span>
                 <hr>
             </article>
@@ -202,7 +190,7 @@
                         <th>Duration</th>
                     </thead>
 
-                    <tbody>
+                    <tbody id="tbprint">
                     </tbody>
                 </table>
                 <span id="totalhours"><strong> Total hours :</strong> </span>
@@ -213,7 +201,7 @@
                 <span><strong>Date</strong></span>
                 <span><strong>Date</strong></span>
             </article>
-            <footer>
+            <footer id="footer">
                 <x-svg.cv type="name" />
             </footer>
         </div>

@@ -4,6 +4,7 @@
 
 <title>{{ config('app.name') }}</title>
 
+<link rel="icon" href="{{ asset('res/P.png') }}">
 <link rel="stylesheet" href="/src/base.css">
 
 {{ $slot }}

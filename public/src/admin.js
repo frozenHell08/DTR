@@ -1,6 +1,5 @@
 let elemid = e => document.getElementById(e);
 
-
 let btn = document.querySelector('#btn'); // menu burger
 let sidebar = document.querySelector('.sidebar'); //sidebar
 let listItem = document.querySelectorAll('.list-item');
@@ -27,25 +26,6 @@ function activeLink() {
 
 listItem.forEach(item =>
     item.onclick = activeLink);
-
-
-const rdbtns = document.getElementsByName('rctrl');
-const frominput = document.getElementById('from');
-const toinput = document.getElementById('to');
-
-rdbtns.forEach((button) => {
-    button.addEventListener('click', () => {
-        const disableInput = button.value;
-
-        if (disableInput === 'true') {
-            frominput.disabled = true;
-            toinput.disabled = true;
-        } else {
-            frominput.disabled = false;
-            toinput.disabled = false;
-        }
-    });
-});
 
 // ---------------------------------------- | NAV LINK | ----------------------------------------
 
@@ -94,6 +74,7 @@ cardList.forEach(card => {
         fetch(`/admin/${userId}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             emp_img.src = `${window.location.origin}/${data.user.profile_picture.replace('public', 'storage')}`;
             emp_img.onerror = function() {
                 emp_img.src = emp_img_def;
@@ -111,11 +92,130 @@ cardList.forEach(card => {
             loadTable(emp_table, data.latest);
         
             btndataid = ppbtn.dataset.id;
+            retrieveRecords('', '', mtable, btndataid);
         });
 
         divprofile.classList.add('active-popup');
+        dateInput();
     });
 });
+
+closeprofile.addEventListener('click', () => {
+    closeProfile(divprofile);
+});
+
+// ---------------------------------------- DATE INPUT ----------------------------------------
+
+const from = document.querySelector('#from');
+const to = document.querySelector('#to');
+const alltime = document.querySelector('#alltime');
+const mtable = elemid('timetable');
+
+let datef, datet;
+
+from.addEventListener('change', () => {
+    datef = from.value;
+    datet = to.value;
+    retrieveRecords(datef, datet, mtable, btndataid);
+});
+
+to.addEventListener('change', () => {
+    datef = from.value;
+    datet = to.value;
+    retrieveRecords(datef, datet, mtable, btndataid);
+});
+
+alltime.addEventListener('change', () => {
+    from.value = '';
+    to.value = '';
+    retrieveRecords('', '', mtable, btndataid);
+});
+
+// ---------------------------------------- | PRINT PREVIEW | ----------------------------------------
+
+const bgP = document.querySelector('.bg-print');
+const closePrint = elemid("cancel-print");
+const startPrint = elemid("btnPrint");
+const tableprint = elemid('timetableprint');
+const employname = elemid('employname');
+const daterange = elemid('daterange');
+const total = elemid('totalhours');
+
+ppbtn.addEventListener('click', ()=> {
+    bgP.classList.add('active-popup');
+
+    const sourcebody = mtable.querySelector('tbody');
+    const rows = sourcebody.querySelectorAll('tr');
+    const printbody = elemid('tbprint');
+    printbody.innerHTML = '';
+
+    rows.forEach((row) => {
+        const rowCopy = row.cloneNode(true);
+        printbody.appendChild(rowCopy);
+    });
+
+    employname.querySelector('em').textContent = 'Employee Name : ' + emp_name.textContent;
+});
+
+closePrint.addEventListener('click', () => {
+    bgP.classList.remove('active-popup');
+});
+
+startPrint.addEventListener('click', function() {
+    print();
+});
+
+// ---------------------------------------- ESCAPE CLOSE ----------------------------------------
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === "Escape") {
+        if (bgP.classList.contains('active-popup')) {
+            closeProfile(bgP);
+            return
+        }
+        
+        if (divprofile.classList.contains('active-popup')) {
+            closeProfile(divprofile);
+        }
+    }
+});
+
+// ---------------------------------------- FUNCTIONS ----------------------------------------
+
+function closeProfile(div) {
+    div.classList.remove('active-popup');
+}
+
+function retrieveRecords(d1, d2, table, id) {
+    let start = new Date(d1);
+    let end = new Date(d2);
+    let startmonth = start.toLocaleString('default', { month: 'long' });
+    let endmonth = end.toLocaleString('default', { month: 'long' });
+
+    fetch(`/dashboard/${id}/table?from=${d1}&to=${d2}`)
+    .then(response => response.json())
+    .then(data => {
+        loadTable(table, data.data);
+        console.log(data);
+
+        start = new Date(data.data[0].date);
+        end = new Date(data.data[data.data.length - 1].date);
+
+        startmonth = start.toLocaleString('default', { month: 'long' });
+        endmonth = end.toLocaleString('default', { month: 'long' });
+
+
+        if (d1 === "") {
+            daterange.innerHTML = `<em>Time Record from : ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
+            to ${endmonth} ${end.getDate()}, ${end.getFullYear()}</em>`; 
+        } else if (d2 === "") {
+            daterange.innerHTML = `<em>Time Record from : ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
+            to ${endmonth} ${end.getDate()}, ${end.getFullYear()}</em>`; 
+        }
+
+        total.textContent = `Total hours : ${data.totaltime}`;
+    });
+}
 
 function loadTable(table, x) {
     table.getElementsByTagName('tbody')[0].innerHTML = '';
@@ -142,85 +242,32 @@ function loadTable(table, x) {
     });
 }
 
-closeprofile.addEventListener('click', () => {
-    closeProfile();
-});
+function dateInput() {
+    const rdbtns = document.getElementsByName('rctrl');
+    const frominput = document.getElementById('from');
+    const toinput = document.getElementById('to');
 
-document.addEventListener('keydown', (event) => {
-    if (event.key === "Escape") {
-        closeProfile();
-    }
-})
+    rdbtns.forEach((button) => {
+        if (button.checked && button.value) {
+            frominput.disabled = true;
+            toinput.disabled = true;
+        } 
+        
+        if (button.checked && ! button.value){
+            frominput.disabled = false;
+            toinput.disabled = false;
+        }
 
-function closeProfile() {
-    divprofile.classList.remove('active-popup');
-}
-
-// ---------------------------------------- | PRINT | ----------------------------------------
-
-const bgP = document.querySelector('.bg-print');
-const closePrint = document.getElementById("cancel-print");
-
-
-ppbtn.addEventListener('click', ()=> {
-    bgP.classList.add('active-popup');
-
-    retrieveRecords('', '', table, btndataid);
-});
-
-closePrint.addEventListener('click', () => {
-    bgP.classList.remove('active-popup');
-});
-
-const startPrint = document.getElementById("btnPrint");
-
-startPrint.addEventListener('click', function() {
-    print();
-});
-
-// ---------------------------------------- PRINT PREVIEW ----------------------------------------
-
-const daterange = document.getElementById('daterange');
-const table = document.getElementById('timetableprint');
-const total = document.getElementById('totalhours');
-
-
-
-// from.addEventListener('change', () => {
-//     const datef = from.value;
-//     const datet = to.value;
-
-//     retrieveRecords(datef, datet, table, userId);
-// });
-
-// to.addEventListener('change', () => {
-//     const datef = from.value;
-//     const datet = to.value;
-
-//     retrieveRecords(datef, datet, table, userId);
-// });
-
-function retrieveRecords(d1, d2, table, id) {
-    const start = new Date(d1);
-    const end = new Date(d2);
-    const now = new Date();
-    const startmonth = start.toLocaleString('default', { month: 'long' });
-    const endmonth = end.toLocaleString('default', { month: 'long' });
-    const nowmonth = now.toLocaleString('default', { month: 'long' });
-
-    if (d2 === "") {
-        daterange.innerHTML = `<em>Time Record from : ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
-        to ${nowmonth} ${now.getDate()}, ${now.getFullYear()}</em>`;    
-    } else {
-        daterange.innerHTML = `<em>Time Record from : ${startmonth} ${start.getDate()}, ${start.getFullYear()} 
-        to ${endmonth} ${end.getDate()}, ${end.getFullYear()}</em>`;
-    }
-
-    fetch(`/dashboard/${id}/table?from=${d1}&to=${d2}`)
-    .then(response => response.json())
-    .then(data => {
-        loadTable(table, data.data);
-
-        total.textContent = `Total hours : ${data.totaltime}`;
+        button.addEventListener('click', () => {
+            const disableInput = button.value;
+    
+            if (disableInput === 'true') {
+                frominput.disabled = true;
+                toinput.disabled = true;
+            } else {
+                frominput.disabled = false;
+                toinput.disabled = false;
+            }
+        });
     });
 }
