@@ -44,6 +44,7 @@ body section, body main {
     margin: 3% 2%;
     border: 2px solid var(--bodybg);
     border-radius: var(--genradius);
+    z-index: 1;
 }
 
 aside {
@@ -82,6 +83,16 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+#particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    z-index: 0;
 }
 
 .session {

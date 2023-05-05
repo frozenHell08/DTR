@@ -22,27 +22,3 @@ iconClose.addEventListener('click', ()=> {
 });
 
 particlesJS.load('particles-container', 'res/particles.js-master/demo/particles.json');
-
-// ---------------------------------------- LOGIN ---------------------------------------- //
-
-// const loginForm = document.getElementById('login-form');
-
-// loginForm.addEventListener('submit', async (event) => {
-//     event.preventDefault();
-
-//     const formData = new FormData(loginForm);
-//     const response = await fetch('/login', {
-//         method: 'POST',
-//         body: formData,
-//     });
-
-//     const json = await response.json();
-//     if (json.success) {
-//         console.log('Login successful!');
-//         // window.location.href = '/admin/dash';
-//     } else {
-//         console.log('Login failed:', json.message);
-//     }
-// });
-
-  

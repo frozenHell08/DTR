@@ -39,6 +39,7 @@
             </form>
         </aside>
     </div>
+    <div id="particles-container"></div>
     <section class="profile">
         <div class="details">
             <div>

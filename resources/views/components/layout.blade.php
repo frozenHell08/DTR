@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>DTR</title>
+<x-header>
+    <link rel="stylesheet" href="/src/style.css">   
+</x-header>
 
-<link rel="stylesheet" href="/src/style.css">
-<link rel="stylesheet" href="/src/animations.css">
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
-
-<body class="mine">
+<body>
     <header>
         <img class = "logo" src="/res/puncher.png" alt="">
 
@@ -30,27 +26,9 @@
 
     {{ $slot }}
 
-    @if (session()->has('success'))
-        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
-            <p>{{ session('success') }}</p>
-        </div>
-    @endif
+    <x-session />
 
-    @if (session()->has('status'))
-        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" class="session">
-            <p>{{ session('status') }}</p>
-        </div>
-    @endif
-
-    @secure
-    <script src="{{ secure_asset('res/particles.js-master/particles.js') }}"></script>
-    @else
-    <script src="{{ asset('res/particles.js-master/particles.js') }}"></script>
-    @endsecure
-    
-    <script type="text/JavaScript" src="/src/script.js"></script>
-    <!-- <script type="text/JavaScript" src="/src/access.js"></script> -->
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <x-scripts>
+        <script type="text/JavaScript" src="/src/script.js"></script>
+    </x-scripts>
 </body>

@@ -162,3 +162,5 @@ function retrieveRecords(d1, d2, table) {
         total.textContent = `Total hours : ${data.totaltime}`;
     });
 }
+
+particlesJS.load('particles-container', '../res/particles.js-master/demo/snow-config.json');

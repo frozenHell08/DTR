@@ -515,13 +515,14 @@ th:first-of-type, td:first-of-type {
     height: 100%;
     position: absolute;
     top: 0;
-
+    display: none;
     scale: 0;
     opacity: 0;
     transition: scale .5s ease, opacity .5s;
 }
 
 .bg-print.active-popup {
+    display: block;
     scale: 1;
     opacity: 1;
 }
