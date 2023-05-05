@@ -56,6 +56,8 @@
     table tbody tr {
         border-bottom: none;
         line-height: 2;
+        break-inside: avoid;
+        break-after: auto;
     }
 
     .print-area article:last-of-type {
@@ -67,5 +69,14 @@
     .print-area footer {
         position: absolute;
         bottom: 0;
+    }
+
+    @page {
+        size:8.5in 11in; 
+        margin: 3cm 1cm;
+    }
+
+    @page :first {
+        margin: 0cm 1cm 1cm 1cm;
     }
 }

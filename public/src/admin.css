@@ -448,7 +448,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px 8px 0 0;
-    overflow: hidden;
+    /* overflow: hidden; */
     
     margin: 0 auto;
     position: relative;
@@ -457,6 +457,12 @@ table {
 table * {
     position: relative;
     text-align: left;
+}
+
+table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 table thead tr {
@@ -497,7 +503,8 @@ th:first-of-type, td:first-of-type {
 .usertable .tbl-container {
     width: 100%;
     height: 100%;
-    padding: 1% 5%;
+    padding: 0 5% 1% 5%;
+    margin-top: 1%;
     overflow-y: scroll;
 }
 
@@ -521,7 +528,7 @@ th:first-of-type, td:first-of-type {
 
 .bg-print .btnlist {
     background: var(--gengray);
-    font-size: 1em;
+    font-size: 1.4em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -629,13 +636,12 @@ th:first-of-type, td:first-of-type {
 
 .print-area article * {
     margin: .5% 0;
-    /* width: 50%; */
 }
 
 .print-area .tbl-container {
     width: 55%;
     margin: 1% 0;
-    font-size: 15px;
+    /* font-size: 20px; */
 }
 
 .print-area thead tr {
@@ -647,7 +653,7 @@ th:first-of-type, td:first-of-type {
 }
 
 .print-area .tbl-container tbody tr {
-    font-size: .8em;
+    font-size: .6em;
 }
 
 .print-area #totalhours {
@@ -677,6 +683,7 @@ th:first-of-type, td:first-of-type {
     border-top: 1.5px solid;
     text-align: center;
     display: block;
+    white-space: nowrap;
 }
 
 .print-area footer {
@@ -690,20 +697,23 @@ th:first-of-type, td:first-of-type {
 /* // ---------------------------------------- SCROLL ETC ---------------------------------------- // */
 
 .card-list::-webkit-scrollbar-track,
-.tbl-container::-webkit-scrollbar-track {
+.tbl-container::-webkit-scrollbar-track,
+#scroll-style::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: transparent;
 }
 
 .card-list::-webkit-scrollbar,
-.tbl-container::-webkit-scrollbar {
+.tbl-container::-webkit-scrollbar,
+#scroll-style::-webkit-scrollbar {
 	width: 12px;
 	background-color: transparent;
 }
 
 .card-list::-webkit-scrollbar-thumb,
-.tbl-container::-webkit-scrollbar-thumb {
+.tbl-container::-webkit-scrollbar-thumb,
+#scroll-style::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: var(--darkhover);

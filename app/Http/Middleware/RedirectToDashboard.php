@@ -16,6 +16,12 @@ class RedirectToDashboard
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
+            $user = auth()->user();
+
+            if ($user->is_admin) {
+                return redirect()->route('admindash');
+            }
+            
             return redirect()->route('dashboard', ['user' => auth()->user()->id]);
         }
 
